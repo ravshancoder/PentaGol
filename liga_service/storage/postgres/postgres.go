@@ -2,12 +2,12 @@ package postgres
 
 import "github.com/jmoiron/sqlx"
 
-type PostRepo struct {
+type LigaRepo struct {
 	db *sqlx.DB
 }
 
-func NewPostRepo(db *sqlx.DB) *PostRepo {
-	return &PostRepo{
+func NewLigaRepo(db *sqlx.DB) *LigaRepo {
+	return &LigaRepo{
 		db: db,
 	}
 }

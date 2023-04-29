@@ -1,4 +1,4 @@
-module github.com/PentaGol/post_service
+module github.com/PentaGol/liga_service
 
 go 1.18
 

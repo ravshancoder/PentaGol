@@ -15,10 +15,12 @@ type Config struct {
 	Environment      string
 	LogLevel         string
 
-	AdminServiceHost  string
-	AdminServicePort  string
+	AdminServiceHost string
+	AdminServicePort string
 	PostServiceHost  string
 	PostServicePort  string
+	LigaServiceHost  string
+	LigaServicePort  string
 }
 
 func Load() Config {
@@ -28,15 +30,18 @@ func Load() Config {
 	c.PostgresPassword = cast.ToString(getOrReturnDefault("POSTGRES_PASSWORD", "r"))
 	c.PostgresHost = cast.ToString(getOrReturnDefault("POSTGRES_HOST", "localhost"))
 	c.PostgresPort = cast.ToString(getOrReturnDefault("POSTGRES_PORT", "5432"))
-	c.PostgresDatabase = cast.ToString(getOrReturnDefault("POSTGRES_DATABASE", "postdb"))
+	c.PostgresDatabase = cast.ToString(getOrReturnDefault("POSTGRES_DATABASE", "ligadb"))
 	c.Environment = cast.ToString(getOrReturnDefault("ENVIRONMENT", "develop"))
 	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
-	
+
 	c.AdminServiceHost = cast.ToString(getOrReturnDefault("ADMIN_SERVICE_HOST", "localhost"))
 	c.AdminServicePort = cast.ToString(getOrReturnDefault("ADMIN_SERVICE_PORT", "8000"))
 
 	c.PostServiceHost = cast.ToString(getOrReturnDefault("POST_SERVICE_HOST", "localhost"))
-	c.PostServicePort = cast.ToString(getOrReturnDefault("POST_SERVICE_PORT", ":8010"))
+	c.PostServicePort = cast.ToString(getOrReturnDefault("POST_SERVICE_PORT", "8010"))
+
+	c.LigaServiceHost = cast.ToString(getOrReturnDefault("LIGA_SERVICE_HOST", "localhost"))
+	c.LigaServicePort = cast.ToString(getOrReturnDefault("LIGA_SERVICE_PORT", ":8020"))
 
 	return c
 }

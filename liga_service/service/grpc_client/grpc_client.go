@@ -3,8 +3,8 @@ package grpcclient
 import (
 	"fmt"
 
-	"github.com/PentaGol/post_service/config"
-	cu "github.com/PentaGol/post_service/genproto/admin"
+	"github.com/PentaGol/liga_service/config"
+	cu "github.com/PentaGol/liga_service/genproto/admin"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -15,8 +15,8 @@ type Clients interface {
 }
 
 type ServiceManager struct {
-	Config         config.Config
-	userService    cu.AdminServiceClient
+	Config      config.Config
+	userService cu.AdminServiceClient
 }
 
 func New(cfg config.Config) (*ServiceManager, error) {
@@ -28,8 +28,8 @@ func New(cfg config.Config) (*ServiceManager, error) {
 	}
 
 	return &ServiceManager{
-		Config:         cfg,
-		userService:    cu.NewAdminServiceClient(connUser),
+		Config:      cfg,
+		userService: cu.NewAdminServiceClient(connUser),
 	}, nil
 }
 

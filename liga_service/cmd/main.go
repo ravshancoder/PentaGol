@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/PentaGol/post_service/config"
-	p "github.com/PentaGol/post_service/genproto/post"
-	"github.com/PentaGol/post_service/pkg/db"
-	"github.com/PentaGol/post_service/pkg/logger"
-	"github.com/PentaGol/post_service/service"
-	grpcclient "github.com/PentaGol/post_service/service/grpc_client"
+	"github.com/PentaGol/liga_service/config"
+	p "github.com/PentaGol/liga_service/genproto/liga"
+	"github.com/PentaGol/liga_service/pkg/db"
+	"github.com/PentaGol/liga_service/pkg/logger"
+	"github.com/PentaGol/liga_service/service"
+	grpcclient "github.com/PentaGol/liga_service/service/grpc_client"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -30,19 +30,19 @@ func main() {
 		fmt.Println("failed while grpc client", err.Error())
 	}
 
-	postService := service.NewPostService(connDb, log, grpcClient)
+	ligaService := service.NewLigaService(connDb, log, grpcClient)
 
-	lis, err := net.Listen("tcp", cfg.PostServicePort)
+	lis, err := net.Listen("tcp", cfg.LigaServicePort)
 	if err != nil {
 		log.Fatal("failed while listening port: %v", logger.Error(err))
 	}
 
 	s := grpc.NewServer()
 	reflection.Register(s)
-	p.RegisterPostServiceServer(s, postService)
+	p.RegisterLigaServiceServer(s, ligaService)
 
 	log.Info("main: server running",
-		logger.String("port", cfg.PostServicePort))
+		logger.String("port", cfg.LigaServicePort))
 	if err := s.Serve(lis); err != nil {
 		log.Fatal("failed while listening: %v", logger.Error(err))
 	}

@@ -7,3 +7,6 @@
 [submodule "pentagol_protos"]
 	path = pentagol_protos
 	url = git@github.com:ravshancoder/pentagol_protos.git
+[submodule "liga_service/pentagol_protos"]
+	path = liga_service/pentagol_protos
+	url = git@github.com:ravshancoder/pentagol_protos.git

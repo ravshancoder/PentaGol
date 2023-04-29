@@ -1,15 +1,12 @@
 package repo
 
 import (
-	p "github.com/PentaGol/post_service/genproto/post"
+	p "github.com/PentaGol/liga_service/genproto/liga"
 )
 
-type PostStorageI interface {
-	CreatePost(*p.PostRequest) (*p.PostResponse, error)
-	GetPostById(*p.IdRequest) (*p.PostResponse, error)
-	GetAllPosts(*p.AllPostRequest)(*p.Posts, error)
-	SearchByTitle(*p.Search) (*p.Posts, error)
-	UpdatePost(*p.UpdatePostRequest) error
-	DeletePost(*p.IdRequest) (*p.PostResponse, error)
-	GetNews(*p.AllPostRequest)(*p.Posts, error)
+type LigaStorageI interface {
+	CreateLiga(*p.LigaRequest) (*p.LigaResponse, error)
+	GetLigaById(*p.IdRequest) (*p.LigaResponse, error)
+	GetAllLigas(*p.AllLigaRequest) (*p.Ligas, error)
+	DeleteLiga(*p.IdRequest) (*p.LigaResponse, error)
 }

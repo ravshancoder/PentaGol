@@ -1,28 +1,28 @@
 package storage
 
 import (
-	"github.com/PentaGol/post_service/storage/postgres"
-	"github.com/PentaGol/post_service/storage/repo"
+	"github.com/PentaGol/liga_service/storage/postgres"
+	"github.com/PentaGol/liga_service/storage/repo"
 
 	"github.com/jmoiron/sqlx"
 )
 
 type IStorage interface {
-	Post() repo.PostStorageI
+	Liga() repo.LigaStorageI
 }
 
 type storagePg struct {
 	db       *sqlx.DB
-	postRepo repo.PostStorageI
+	ligaRepo repo.LigaStorageI
 }
 
 func NewStoragePg(db *sqlx.DB) *storagePg {
 	return &storagePg{
 		db:       db,
-		postRepo: postgres.NewPostRepo(db),
+		ligaRepo: postgres.NewLigaRepo(db),
 	}
 }
 
-func (s storagePg) Post() repo.PostStorageI {
-	return s.postRepo
+func (s storagePg) Liga() repo.LigaStorageI {
+	return s.ligaRepo
 }
