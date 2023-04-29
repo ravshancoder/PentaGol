@@ -192,13 +192,14 @@ func (m *AdminRequest) GetRefreshToken() string {
 }
 
 type AdminResponse struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
 	Email                string   `protobuf:"bytes,3,opt,name=email,proto3" json:"email"`
 	Password             string   `protobuf:"bytes,4,opt,name=password,proto3" json:"password"`
-	RefreshToken         string   `protobuf:"bytes,5,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token"`
-	CreatedAt            string   `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
-	UpdatedAt            string   `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
+	Posts                []*Post  `protobuf:"bytes,5,rep,name=posts,proto3" json:"posts"`
+	RefreshToken         string   `protobuf:"bytes,6,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token"`
+	CreatedAt            string   `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string   `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -237,11 +238,11 @@ func (m *AdminResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AdminResponse proto.InternalMessageInfo
 
-func (m *AdminResponse) GetId() string {
+func (m *AdminResponse) GetId() int64 {
 	if m != nil {
 		return m.Id
 	}
-	return ""
+	return 0
 }
 
 func (m *AdminResponse) GetName() string {
@@ -263,6 +264,13 @@ func (m *AdminResponse) GetPassword() string {
 		return m.Password
 	}
 	return ""
+}
+
+func (m *AdminResponse) GetPosts() []*Post {
+	if m != nil {
+		return m.Posts
+	}
+	return nil
 }
 
 func (m *AdminResponse) GetRefreshToken() string {
@@ -287,7 +295,7 @@ func (m *AdminResponse) GetUpdatedAt() string {
 }
 
 type Post struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 	Title                string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title"`
 	Description          string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description"`
 	CreatedAt            string   `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
@@ -330,11 +338,11 @@ func (m *Post) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Post proto.InternalMessageInfo
 
-func (m *Post) GetId() string {
+func (m *Post) GetId() int64 {
 	if m != nil {
 		return m.Id
 	}
-	return ""
+	return 0
 }
 
 func (m *Post) GetTitle() string {
@@ -366,7 +374,7 @@ func (m *Post) GetUpdatedAt() string {
 }
 
 type IdRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -405,11 +413,11 @@ func (m *IdRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_IdRequest proto.InternalMessageInfo
 
-func (m *IdRequest) GetId() string {
+func (m *IdRequest) GetId() int64 {
 	if m != nil {
 		return m.Id
 	}
-	return ""
+	return 0
 }
 
 type CheckFieldReq struct {
@@ -515,7 +523,7 @@ func (m *CheckFieldRes) GetExists() bool {
 }
 
 type RequestForTokens struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 	RefreshToken         string   `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token"`
 	AccesToken           string   `protobuf:"bytes,3,opt,name=acces_token,json=accesToken,proto3" json:"acces_token"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -556,11 +564,11 @@ func (m *RequestForTokens) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RequestForTokens proto.InternalMessageInfo
 
-func (m *RequestForTokens) GetId() string {
+func (m *RequestForTokens) GetId() int64 {
 	if m != nil {
 		return m.Id
 	}
-	return ""
+	return 0
 }
 
 func (m *RequestForTokens) GetRefreshToken() string {
@@ -592,38 +600,38 @@ func init() {
 func init() { proto.RegisterFile("admin/admin.proto", fileDescriptor_8595c8dce2486799) }
 
 var fileDescriptor_8595c8dce2486799 = []byte{
-	// 486 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x94, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0x86, 0x63, 0xc7, 0x4e, 0x93, 0x49, 0x02, 0x61, 0x15, 0x41, 0x14, 0x44, 0x88, 0x96, 0x03,
-	0x9c, 0x8a, 0x44, 0x2f, 0x08, 0x24, 0xa4, 0x04, 0xd1, 0xaa, 0x37, 0x14, 0xe0, 0x5c, 0x2d, 0xde,
-	0xa9, 0xb2, 0xaa, 0x63, 0xbb, 0xde, 0x4d, 0x21, 0xef, 0xc0, 0x03, 0x20, 0x9e, 0xa8, 0x47, 0x1e,
-	0x01, 0x85, 0xa7, 0xe0, 0x86, 0x3c, 0x5e, 0xa7, 0x8d, 0xe3, 0x20, 0x2e, 0xd1, 0xce, 0x3f, 0xff,
-	0x28, 0xdf, 0xce, 0xcc, 0x1a, 0xee, 0x09, 0xb9, 0x50, 0xd1, 0x73, 0xfa, 0x3d, 0x4c, 0xd2, 0xd8,
-	0xc4, 0xcc, 0xa7, 0x80, 0x1f, 0x80, 0x8f, 0x8b, 0xc4, 0xac, 0xf8, 0x18, 0x9a, 0xef, 0x16, 0x42,
-	0x85, 0x33, 0xbc, 0x64, 0xfd, 0x4c, 0x14, 0x2a, 0x1c, 0x38, 0x63, 0xe7, 0x59, 0x6b, 0x96, 0x07,
-	0xfc, 0x87, 0x03, 0x9d, 0x49, 0x56, 0x34, 0xc3, 0xcb, 0x25, 0x6a, 0xc3, 0x18, 0x78, 0x91, 0x58,
-	0xa0, 0x75, 0xd1, 0xf9, 0xa6, 0xd4, 0xbd, 0x55, 0xca, 0x86, 0xd0, 0x4c, 0x84, 0xd6, 0x5f, 0xe2,
-	0x54, 0x0e, 0xea, 0x94, 0xd8, 0xc4, 0xec, 0x31, 0xb4, 0x45, 0x10, 0xa0, 0x3e, 0x33, 0xf1, 0x05,
-	0x46, 0x03, 0x8f, 0xd2, 0x40, 0xd2, 0xc7, 0x4c, 0x61, 0x4f, 0xa0, 0x9b, 0xe2, 0x79, 0x8a, 0x7a,
-	0x6e, 0x2d, 0x3e, 0x59, 0x3a, 0x56, 0x24, 0x13, 0xbf, 0x76, 0xa0, 0x6b, 0xe1, 0x74, 0x12, 0x47,
-	0x1a, 0xd9, 0x1d, 0x70, 0x95, 0xb4, 0x6c, 0xae, 0x92, 0x1b, 0x5a, 0xb7, 0x8a, 0xb6, 0xbe, 0x8f,
-	0xd6, 0x2b, 0xd1, 0xfe, 0x0f, 0x0c, 0x7b, 0x04, 0x10, 0xa4, 0x28, 0x0c, 0xca, 0x33, 0x61, 0x06,
-	0x0d, 0x72, 0xb4, 0xac, 0x32, 0x31, 0x59, 0x7a, 0x99, 0xc8, 0x22, 0x7d, 0x90, 0xa7, 0xad, 0x32,
-	0x31, 0xfc, 0x9b, 0x03, 0xde, 0xfb, 0x58, 0x9b, 0x9d, 0x1b, 0xf4, 0xc1, 0x37, 0xca, 0x84, 0xc5,
-	0x15, 0xf2, 0x80, 0x8d, 0xa1, 0x2d, 0x51, 0x07, 0xa9, 0x4a, 0x8c, 0x8a, 0x23, 0x7b, 0x93, 0xdb,
-	0x52, 0x09, 0xc7, 0xfb, 0x37, 0x8e, 0x5f, 0xc6, 0x79, 0x08, 0xad, 0x53, 0x59, 0x8c, 0xbc, 0x84,
-	0xc4, 0x5f, 0x43, 0xf7, 0xed, 0x1c, 0x83, 0x8b, 0x63, 0x85, 0xa1, 0xb4, 0xab, 0x73, 0x9e, 0x9d,
-	0x8b, 0xd5, 0xa1, 0x20, 0x53, 0xaf, 0x44, 0xb8, 0xdc, 0x90, 0x53, 0xc0, 0x9f, 0x6e, 0x17, 0x6b,
-	0x76, 0x1f, 0x1a, 0xf8, 0x55, 0x69, 0xa3, 0xa9, 0xba, 0x39, 0xb3, 0x11, 0x9f, 0x43, 0xcf, 0x02,
-	0x1c, 0xc7, 0x29, 0xb5, 0x58, 0xef, 0x34, 0x67, 0x67, 0x30, 0x6e, 0xc5, 0x60, 0x4a, 0xbb, 0x56,
-	0x2f, 0xef, 0xda, 0x8b, 0x3f, 0xc5, 0x8e, 0x7f, 0xc0, 0xf4, 0x4a, 0x05, 0xc8, 0x5e, 0x42, 0xe7,
-	0x04, 0x0d, 0x49, 0xd3, 0xd5, 0xa9, 0x64, 0xbd, 0xc3, 0xfc, 0x11, 0x6d, 0x5a, 0x32, 0xec, 0x5b,
-	0x65, 0x6b, 0xfb, 0x78, 0x8d, 0xbd, 0x02, 0xb8, 0xb9, 0x1d, 0x2b, 0x5c, 0x5b, 0xdd, 0x1a, 0x56,
-	0xa9, 0x9a, 0xd7, 0xd8, 0x1b, 0x68, 0x7f, 0xa2, 0x01, 0xe4, 0xd8, 0x0f, 0xac, 0xad, 0xdc, 0x84,
-	0xbd, 0xff, 0x7d, 0x04, 0x70, 0x82, 0x66, 0xba, 0xa2, 0x17, 0xcd, 0xee, 0x5a, 0x57, 0xf1, 0xbe,
-	0xab, 0xcb, 0xa6, 0xbd, 0xeb, 0xf5, 0xc8, 0xf9, 0xb9, 0x1e, 0x39, 0xbf, 0xd6, 0x23, 0xe7, 0xfb,
-	0xef, 0x51, 0xed, 0x73, 0x83, 0x3e, 0x15, 0x47, 0x7f, 0x03, 0x00, 0x00, 0xff, 0xff, 0x4c, 0xfb,
-	0x6d, 0x47, 0x3f, 0x04, 0x00, 0x00,
+	// 491 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x94, 0xcf, 0x6e, 0xd3, 0x40,
+	0x10, 0xc6, 0xeb, 0x7f, 0x69, 0x32, 0x6e, 0xa0, 0xac, 0x22, 0xb0, 0x8a, 0x08, 0x61, 0x39, 0xd0,
+	0x53, 0x91, 0xda, 0x1b, 0x48, 0x48, 0x29, 0xa2, 0x88, 0x1b, 0x32, 0x70, 0xae, 0x16, 0xef, 0x54,
+	0x59, 0xd5, 0xf1, 0xba, 0xde, 0x4d, 0xa1, 0xef, 0xc0, 0x03, 0x20, 0x5e, 0x86, 0x2b, 0x47, 0x1e,
+	0x01, 0x85, 0x23, 0x2f, 0x81, 0x76, 0xbd, 0x4e, 0x1b, 0x3b, 0x70, 0x89, 0x3c, 0xdf, 0xcc, 0x68,
+	0x7f, 0x33, 0xfb, 0x6d, 0xe0, 0x0e, 0xe3, 0x73, 0x51, 0x3c, 0xb5, 0xbf, 0x07, 0x65, 0x25, 0xb5,
+	0x24, 0x91, 0x0d, 0xe8, 0x36, 0x44, 0x38, 0x2f, 0xf5, 0x15, 0x9d, 0x40, 0xff, 0xd5, 0x9c, 0x89,
+	0x3c, 0xc5, 0x0b, 0x32, 0x32, 0x22, 0x13, 0x79, 0xe2, 0x4d, 0xbc, 0xfd, 0x41, 0x5a, 0x07, 0xf4,
+	0x9b, 0x07, 0x3b, 0x53, 0xd3, 0x94, 0xe2, 0xc5, 0x02, 0x95, 0x26, 0x04, 0xc2, 0x82, 0xcd, 0xd1,
+	0x55, 0xd9, 0xef, 0xeb, 0x56, 0xff, 0x46, 0x2b, 0xd9, 0x83, 0x7e, 0xc9, 0x94, 0xfa, 0x24, 0x2b,
+	0x9e, 0x04, 0x36, 0xb1, 0x8a, 0xc9, 0x43, 0x88, 0x59, 0x96, 0xa1, 0x3a, 0xd5, 0xf2, 0x1c, 0x8b,
+	0x24, 0xb4, 0x69, 0xb0, 0xd2, 0x7b, 0xa3, 0x90, 0xc7, 0x30, 0xac, 0xf0, 0xac, 0x42, 0x35, 0x73,
+	0x25, 0x91, 0x2d, 0xd9, 0x71, 0xa2, 0x2d, 0xa2, 0x7f, 0x3c, 0x18, 0x3a, 0x38, 0x55, 0xca, 0x42,
+	0x21, 0xb9, 0x05, 0xbe, 0xe0, 0x96, 0x2d, 0x48, 0x7d, 0xc1, 0x57, 0xb4, 0xfe, 0x26, 0xda, 0xe0,
+	0x5f, 0xb4, 0x61, 0x8b, 0xf6, 0x11, 0x44, 0xa5, 0x54, 0x5a, 0x25, 0xd1, 0x24, 0xd8, 0x8f, 0x0f,
+	0xe3, 0x83, 0x7a, 0xa7, 0x6f, 0xa5, 0xd2, 0x69, 0x9d, 0xe9, 0xf2, 0xf6, 0xba, 0xbc, 0xe4, 0x01,
+	0x40, 0x56, 0x21, 0xd3, 0xc8, 0x4f, 0x99, 0x4e, 0xb6, 0x6d, 0xc5, 0xc0, 0x29, 0x53, 0x6d, 0xd2,
+	0x8b, 0x92, 0x37, 0xe9, 0x7e, 0x9d, 0x76, 0xca, 0x54, 0xd3, 0x2f, 0x1e, 0x84, 0xe6, 0xc8, 0xce,
+	0x90, 0x23, 0x88, 0xb4, 0xd0, 0x79, 0x33, 0x65, 0x1d, 0x90, 0x09, 0xc4, 0x1c, 0x55, 0x56, 0x89,
+	0x52, 0x0b, 0x59, 0xb8, 0x61, 0x6f, 0x4a, 0x2d, 0x9c, 0xf0, 0xff, 0x38, 0x51, 0x1b, 0xe7, 0x3e,
+	0x0c, 0xde, 0xf0, 0xc6, 0x15, 0x2d, 0x24, 0xfa, 0x1c, 0x86, 0x2f, 0x67, 0x98, 0x9d, 0x9f, 0x08,
+	0xcc, 0xb9, 0x73, 0xd7, 0x99, 0xf9, 0x6e, 0xdc, 0x65, 0x03, 0xa3, 0x5e, 0xb2, 0x7c, 0xb1, 0x22,
+	0xb7, 0x01, 0x7d, 0xb2, 0xde, 0xac, 0xc8, 0x5d, 0xe8, 0xe1, 0x67, 0x61, 0x2e, 0xc0, 0x74, 0xf7,
+	0x53, 0x17, 0xd1, 0x19, 0xec, 0x3a, 0x80, 0x13, 0x59, 0xd9, 0x15, 0xab, 0xce, 0x72, 0x3a, 0x17,
+	0xe3, 0x6f, 0xb8, 0x98, 0x96, 0x1d, 0x83, 0xb6, 0x1d, 0x0f, 0xbf, 0x37, 0xcf, 0xe0, 0x1d, 0x56,
+	0x97, 0x22, 0x43, 0xf2, 0x0c, 0xe0, 0x9a, 0x91, 0x8c, 0x9c, 0x23, 0xd6, 0x66, 0xde, 0xdb, 0xa4,
+	0x2a, 0xba, 0x45, 0x5e, 0x40, 0xfc, 0xc1, 0xae, 0xb1, 0x3e, 0xfc, 0x9e, 0x2b, 0x6b, 0x8f, 0xb2,
+	0xea, 0x5f, 0xb3, 0x38, 0xdd, 0x22, 0x47, 0x00, 0xaf, 0x51, 0x1f, 0x5f, 0xd9, 0xa7, 0x4b, 0x6e,
+	0xbb, 0xaa, 0xe6, 0x21, 0x6f, 0x6e, 0x3b, 0xde, 0xfd, 0xb1, 0x1c, 0x7b, 0x3f, 0x97, 0x63, 0xef,
+	0xd7, 0x72, 0xec, 0x7d, 0xfd, 0x3d, 0xde, 0xfa, 0xd8, 0xb3, 0xff, 0x09, 0x47, 0x7f, 0x03, 0x00,
+	0x00, 0xff, 0xff, 0xc3, 0x48, 0xf1, 0xba, 0x28, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -638,7 +646,6 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AdminServiceClient interface {
-	GetAdminById(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*AdminResponse, error)
 	CheckField(ctx context.Context, in *CheckFieldReq, opts ...grpc.CallOption) (*CheckFieldRes, error)
 	UpdateToken(ctx context.Context, in *RequestForTokens, opts ...grpc.CallOption) (*AdminResponse, error)
 	GetByEmail(ctx context.Context, in *EmailReq, opts ...grpc.CallOption) (*AdminResponse, error)
@@ -650,15 +657,6 @@ type adminServiceClient struct {
 
 func NewAdminServiceClient(cc *grpc.ClientConn) AdminServiceClient {
 	return &adminServiceClient{cc}
-}
-
-func (c *adminServiceClient) GetAdminById(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*AdminResponse, error) {
-	out := new(AdminResponse)
-	err := c.cc.Invoke(ctx, "/admin.AdminService/GetAdminById", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *adminServiceClient) CheckField(ctx context.Context, in *CheckFieldReq, opts ...grpc.CallOption) (*CheckFieldRes, error) {
@@ -690,7 +688,6 @@ func (c *adminServiceClient) GetByEmail(ctx context.Context, in *EmailReq, opts 
 
 // AdminServiceServer is the server API for AdminService service.
 type AdminServiceServer interface {
-	GetAdminById(context.Context, *IdRequest) (*AdminResponse, error)
 	CheckField(context.Context, *CheckFieldReq) (*CheckFieldRes, error)
 	UpdateToken(context.Context, *RequestForTokens) (*AdminResponse, error)
 	GetByEmail(context.Context, *EmailReq) (*AdminResponse, error)
@@ -700,9 +697,6 @@ type AdminServiceServer interface {
 type UnimplementedAdminServiceServer struct {
 }
 
-func (*UnimplementedAdminServiceServer) GetAdminById(ctx context.Context, req *IdRequest) (*AdminResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAdminById not implemented")
-}
 func (*UnimplementedAdminServiceServer) CheckField(ctx context.Context, req *CheckFieldReq) (*CheckFieldRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckField not implemented")
 }
@@ -715,24 +709,6 @@ func (*UnimplementedAdminServiceServer) GetByEmail(ctx context.Context, req *Ema
 
 func RegisterAdminServiceServer(s *grpc.Server, srv AdminServiceServer) {
 	s.RegisterService(&_AdminService_serviceDesc, srv)
-}
-
-func _AdminService_GetAdminById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AdminServiceServer).GetAdminById(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/admin.AdminService/GetAdminById",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServiceServer).GetAdminById(ctx, req.(*IdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _AdminService_CheckField_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -793,10 +769,6 @@ var _AdminService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "admin.AdminService",
 	HandlerType: (*AdminServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GetAdminById",
-			Handler:    _AdminService_GetAdminById_Handler,
-		},
 		{
 			MethodName: "CheckField",
 			Handler:    _AdminService_CheckField_Handler,
@@ -966,21 +938,35 @@ func (m *AdminResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		copy(dAtA[i:], m.UpdatedAt)
 		i = encodeVarintAdmin(dAtA, i, uint64(len(m.UpdatedAt)))
 		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x42
 	}
 	if len(m.CreatedAt) > 0 {
 		i -= len(m.CreatedAt)
 		copy(dAtA[i:], m.CreatedAt)
 		i = encodeVarintAdmin(dAtA, i, uint64(len(m.CreatedAt)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 	}
 	if len(m.RefreshToken) > 0 {
 		i -= len(m.RefreshToken)
 		copy(dAtA[i:], m.RefreshToken)
 		i = encodeVarintAdmin(dAtA, i, uint64(len(m.RefreshToken)))
 		i--
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
+	}
+	if len(m.Posts) > 0 {
+		for iNdEx := len(m.Posts) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Posts[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintAdmin(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x2a
+		}
 	}
 	if len(m.Password) > 0 {
 		i -= len(m.Password)
@@ -1003,12 +989,10 @@ func (m *AdminResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Id) > 0 {
-		i -= len(m.Id)
-		copy(dAtA[i:], m.Id)
-		i = encodeVarintAdmin(dAtA, i, uint64(len(m.Id)))
+	if m.Id != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.Id))
 		i--
-		dAtA[i] = 0xa
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -1065,12 +1049,10 @@ func (m *Post) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Id) > 0 {
-		i -= len(m.Id)
-		copy(dAtA[i:], m.Id)
-		i = encodeVarintAdmin(dAtA, i, uint64(len(m.Id)))
+	if m.Id != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.Id))
 		i--
-		dAtA[i] = 0xa
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -1099,12 +1081,10 @@ func (m *IdRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.Id) > 0 {
-		i -= len(m.Id)
-		copy(dAtA[i:], m.Id)
-		i = encodeVarintAdmin(dAtA, i, uint64(len(m.Id)))
+	if m.Id != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.Id))
 		i--
-		dAtA[i] = 0xa
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -1225,12 +1205,10 @@ func (m *RequestForTokens) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Id) > 0 {
-		i -= len(m.Id)
-		copy(dAtA[i:], m.Id)
-		i = encodeVarintAdmin(dAtA, i, uint64(len(m.Id)))
+	if m.Id != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.Id))
 		i--
-		dAtA[i] = 0xa
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -1312,9 +1290,8 @@ func (m *AdminResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Id)
-	if l > 0 {
-		n += 1 + l + sovAdmin(uint64(l))
+	if m.Id != 0 {
+		n += 1 + sovAdmin(uint64(m.Id))
 	}
 	l = len(m.Name)
 	if l > 0 {
@@ -1327,6 +1304,12 @@ func (m *AdminResponse) Size() (n int) {
 	l = len(m.Password)
 	if l > 0 {
 		n += 1 + l + sovAdmin(uint64(l))
+	}
+	if len(m.Posts) > 0 {
+		for _, e := range m.Posts {
+			l = e.Size()
+			n += 1 + l + sovAdmin(uint64(l))
+		}
 	}
 	l = len(m.RefreshToken)
 	if l > 0 {
@@ -1352,9 +1335,8 @@ func (m *Post) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Id)
-	if l > 0 {
-		n += 1 + l + sovAdmin(uint64(l))
+	if m.Id != 0 {
+		n += 1 + sovAdmin(uint64(m.Id))
 	}
 	l = len(m.Title)
 	if l > 0 {
@@ -1384,9 +1366,8 @@ func (m *IdRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Id)
-	if l > 0 {
-		n += 1 + l + sovAdmin(uint64(l))
+	if m.Id != 0 {
+		n += 1 + sovAdmin(uint64(m.Id))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -1435,9 +1416,8 @@ func (m *RequestForTokens) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Id)
-	if l > 0 {
-		n += 1 + l + sovAdmin(uint64(l))
+	if m.Id != 0 {
+		n += 1 + sovAdmin(uint64(m.Id))
 	}
 	l = len(m.RefreshToken)
 	if l > 0 {
@@ -1834,10 +1814,10 @@ func (m *AdminResponse) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 			}
-			var stringLen uint64
+			m.Id = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAdmin
@@ -1847,24 +1827,11 @@ func (m *AdminResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.Id |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Id = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
@@ -1963,6 +1930,40 @@ func (m *AdminResponse) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Posts", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Posts = append(m.Posts, &Post{})
+			if err := m.Posts[len(m.Posts)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RefreshToken", wireType)
 			}
 			var stringLen uint64
@@ -1993,7 +1994,7 @@ func (m *AdminResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.RefreshToken = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
 			}
@@ -2025,7 +2026,7 @@ func (m *AdminResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.CreatedAt = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedAt", wireType)
 			}
@@ -2109,10 +2110,10 @@ func (m *Post) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 			}
-			var stringLen uint64
+			m.Id = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAdmin
@@ -2122,24 +2123,11 @@ func (m *Post) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.Id |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Id = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
@@ -2320,10 +2308,10 @@ func (m *IdRequest) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 			}
-			var stringLen uint64
+			m.Id = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAdmin
@@ -2333,24 +2321,11 @@ func (m *IdRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.Id |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Id = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAdmin(dAtA[iNdEx:])
@@ -2589,10 +2564,10 @@ func (m *RequestForTokens) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 			}
-			var stringLen uint64
+			m.Id = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAdmin
@@ -2602,24 +2577,11 @@ func (m *RequestForTokens) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.Id |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthAdmin
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Id = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RefreshToken", wireType)
