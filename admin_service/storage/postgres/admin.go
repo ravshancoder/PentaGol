@@ -123,6 +123,7 @@ func (r *AdminRepo) UpdateToken(admin *u.RequestForTokens) (*u.AdminResponse, er
 			&res.Name,
 			&res.Email,
 			&res.RefreshToken,
+			&res.CreatedAt,
 			&res.UpdatedAt,
 		)
 

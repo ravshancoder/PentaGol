@@ -56,7 +56,7 @@ func (h *handlerV1) CreatePost(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
-		h.log.Error("failed to create user", l.Error(err))
+		h.log.Error("failed to create post", l.Error(err))
 		return
 	}
 
@@ -74,7 +74,7 @@ func (h *handlerV1) CreatePost(c *gin.Context) {
 // @Failure 400 {object} models.StandartErrorModel
 // @Failure 404 {object} models.StandartErrorModel
 // @Failure 500 {object} models.StandartErrorModel
-// @Router /v1/posts/{id} [put]
+// @Router /v1/post/{id} [put]
 func (h *handlerV1) UpdatePost(c *gin.Context) {
 	var (
 		body        models.UpdatePostRequest

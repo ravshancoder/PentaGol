@@ -66,31 +66,25 @@ func (a *JwtRoleAuth) GetRole(r *http.Request) (string, error) {
 	fmt.Println(claims["role"])
 	if claims["role"].(string) == "authorized" {
 		role = "authorized"
-	} else if claims["role"].(string) == "owner" {
-		role = "owner"
-	} else if claims["role"].(string) == "admin" {
-		role = "admin"
-	} else if claims["role"].(string) == "user" {
-		role = "user"
 	} else {
 		role = "unknown"
 	}
 	return role, nil
 }
 
-// CheckPermission checks whether user is allowed to use certain endpoint
+// CheckPermission checks whether admin is allowed to use certain endpoint
 func (a *JwtRoleAuth) CheckPermission(r *http.Request) (bool, error) {
-	user, err := a.GetRole(r)
+	admin, err := a.GetRole(r)
 	if err != nil {
 		return false, err
 	}
-	fmt.Println(user)
+	fmt.Println(admin)
 	method := r.Method
 	path := r.URL.Path
 	fmt.Println(r.Method)
 	fmt.Println(r.URL.Path)
 
-	allowed, err := a.enforcer.Enforce(user, path, method)
+	allowed, err := a.enforcer.Enforce(admin, path, method)
 	if err != nil {
 		panic(err)
 	}

@@ -12,6 +12,15 @@ definitions:
       updated_at:
         type: string
     type: object
+  models.AdminRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
   models.Error:
     properties:
       message:
@@ -37,8 +46,6 @@ definitions:
       description:
         type: string
       title:
-        type: string
-      user_id:
         type: string
     type: object
   models.Posts:
@@ -68,11 +75,43 @@ info:
   contact: {}
   title: Swagger for admin api
 paths:
+  /v1/admin:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a admin
+      parameters:
+      - description: Create Admin
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.AdminRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create admin
+      tags:
+      - Admin
   /v1/admin/{id}:
     get:
       consumes:
       - application/json
-      description: This api gets a user by id
+      description: This api gets a admin by id
       parameters:
       - description: Id
         in: path
@@ -96,7 +135,7 @@ paths:
             $ref: '#/definitions/models.StandartErrorModel'
       security:
       - ApiKeyAuth: []
-      summary: get user by id
+      summary: get admin by id
       tags:
       - Admin
   /v1/login/{email}/{password}:
@@ -216,6 +255,41 @@ paths:
       summary: get post by id
       tags:
       - Post
+    put:
+      consumes:
+      - application/json
+      description: This api updates a post
+      parameters:
+      - description: Update Post
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: update post
+      tags:
+      - Post
   /v1/posts:
     get:
       consumes:
@@ -252,42 +326,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: get all posts
-      tags:
-      - Post
-  /v1/posts/{id}:
-    put:
-      consumes:
-      - application/json
-      description: This api updates a post
-      parameters:
-      - description: Update Post
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/models.UpdatePostRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Post'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartErrorModel'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.StandartErrorModel'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartErrorModel'
-      security:
-      - ApiKeyAuth: []
-      summary: update post
       tags:
       - Post
 securityDefinitions:
