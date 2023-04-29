@@ -11,16 +11,14 @@ func (r *LigaRepo) CreateLiga(liga *p.LigaRequest) (*p.LigaResponse, error) {
 	var res p.LigaResponse
 	err := r.db.QueryRow(`
 		insert into 
-			posts(title, description, admin_id) 
+			ligas(name) 
 		values
-			($1, $2, $3) 
+			($1) 
 		returning 
-			id, title, description, admin_id, created_at, updated_at`, liga.Title, liga.Description, liga.AdminId).
+			id created_at, updated_at`, liga.Name).
 		Scan(
 			&res.Id,
-			&res.Title,
-			&res.Description,
-			&res.AdminId,
+			&res.Name,
 			&res.CreatedAt,
 			&res.UpdatedAt,
 		)
@@ -37,22 +35,20 @@ func (r *LigaRepo) GetLigaById(liga *p.IdRequest) (*p.LigaResponse, error) {
 	res := p.LigaResponse{}
 	err := r.db.QueryRow(`
 		select 
-			id, title, description, admin_id, created_at, updated_at 
+			id, name, created_at, updated_at 
 		from 
-			posts 
+			ligas 
 		where 
 			id = $1 and deleted_at is null`, liga.Id).
 		Scan(
 			&res.Id,
-			&res.Title,
-			&res.Description,
-			&res.AdminId,
+			&res.Name,
 			&res.CreatedAt,
 			&res.UpdatedAt,
 		)
 
 	if err != nil {
-		log.Println("failed to get post")
+		log.Println("failed to get liga")
 		return &p.LigaResponse{}, err
 	}
 
@@ -66,7 +62,7 @@ func (r *LigaRepo) GetAllLigas(req *p.AllLigaRequest) (*p.Ligas, error) {
 
 	rows, err := r.db.Query(`
 		select 
-			id, title, description, admin_id, created_at, updated_at 
+			id, name, created_at, updated_at 
 		from 
 			ligas 
 		where 
@@ -74,7 +70,7 @@ func (r *LigaRepo) GetAllLigas(req *p.AllLigaRequest) (*p.Ligas, error) {
 		limit $1 offset $2`, req.Limit, offset,
 	)
 	if err != nil {
-		log.Println("failed to get post")
+		log.Println("failed to get liga")
 		return &p.Ligas{}, err
 	}
 
@@ -82,14 +78,12 @@ func (r *LigaRepo) GetAllLigas(req *p.AllLigaRequest) (*p.Ligas, error) {
 		temp := p.LigaResponse{}
 		err = rows.Scan(
 			&temp.Id,
-			&temp.Title,
-			&temp.Description,
-			&temp.AdminId,
+			&temp.Name,
 			&temp.CreatedAt,
 			&temp.UpdatedAt,
 		)
 		if err != nil {
-			log.Println("failed to scanning post")
+			log.Println("failed to scanning liga")
 			return &p.Ligas{}, err
 		}
 
@@ -100,7 +94,7 @@ func (r *LigaRepo) GetAllLigas(req *p.AllLigaRequest) (*p.Ligas, error) {
 }
 
 func (r *LigaRepo) DeleteLiga(id *p.IdRequest) (*p.LigaResponse, error) {
-	post := p.LigaResponse{}
+	liga := p.LigaResponse{}
 	err := r.db.QueryRow(`
 		update 
 			ligas 
@@ -109,20 +103,18 @@ func (r *LigaRepo) DeleteLiga(id *p.IdRequest) (*p.LigaResponse, error) {
 		where 
 			id = $2 
 		returning 
-			id, title, description, admin_id, created_at, updated_at`, time.Now(), id.Id).
+			id, name, created_at, updated_at`, time.Now(), id.Id).
 		Scan(
-			&post.Id,
-			&post.Title,
-			&post.Description,
-			&post.AdminId,
-			&post.CreatedAt,
-			&post.UpdatedAt,
+			&liga.Id,
+			&liga.Name,
+			&liga.CreatedAt,
+			&liga.UpdatedAt,
 		)
 
 	if err != nil {
-		log.Println("failed to delete post")
+		log.Println("failed to delete liga")
 		return &p.LigaResponse{}, err
 	}
 
-	return &post, nil
+	return &liga, nil
 }

@@ -130,11 +130,9 @@ func (m *Ligas) GetLigas() []*LigaResponse {
 
 type LigaResponse struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
-	Title                string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title"`
-	Description          string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description"`
-	AdminId              string   `protobuf:"bytes,6,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
-	CreatedAt            string   `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
-	UpdatedAt            string   `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
+	CreatedAt            string   `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string   `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -180,23 +178,9 @@ func (m *LigaResponse) GetId() string {
 	return ""
 }
 
-func (m *LigaResponse) GetTitle() string {
+func (m *LigaResponse) GetName() string {
 	if m != nil {
-		return m.Title
-	}
-	return ""
-}
-
-func (m *LigaResponse) GetDescription() string {
-	if m != nil {
-		return m.Description
-	}
-	return ""
-}
-
-func (m *LigaResponse) GetAdminId() string {
-	if m != nil {
-		return m.AdminId
+		return m.Name
 	}
 	return ""
 }
@@ -216,9 +200,7 @@ func (m *LigaResponse) GetUpdatedAt() string {
 }
 
 type LigaRequest struct {
-	Title                string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title"`
-	Description          string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description"`
-	AdminId              string   `protobuf:"bytes,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -257,23 +239,9 @@ func (m *LigaRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_LigaRequest proto.InternalMessageInfo
 
-func (m *LigaRequest) GetTitle() string {
+func (m *LigaRequest) GetName() string {
 	if m != nil {
-		return m.Title
-	}
-	return ""
-}
-
-func (m *LigaRequest) GetDescription() string {
-	if m != nil {
-		return m.Description
-	}
-	return ""
-}
-
-func (m *LigaRequest) GetAdminId() string {
-	if m != nil {
-		return m.AdminId
+		return m.Name
 	}
 	return ""
 }
@@ -336,30 +304,28 @@ func init() {
 func init() { proto.RegisterFile("liga/liga.proto", fileDescriptor_bf1f8d8504eb0d8c) }
 
 var fileDescriptor_bf1f8d8504eb0d8c = []byte{
-	// 366 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xcd, 0x4e, 0xf2, 0x40,
-	0x14, 0x65, 0x5a, 0xfe, 0x7a, 0xfb, 0x05, 0xbe, 0xef, 0x86, 0x45, 0x3f, 0x8c, 0x0d, 0xe9, 0x8a,
-	0x15, 0x46, 0xd0, 0x8d, 0x3b, 0xd0, 0xc4, 0x90, 0xb8, 0xaa, 0x0f, 0x80, 0x95, 0x99, 0x34, 0x93,
-	0x14, 0x5a, 0x3b, 0x83, 0x89, 0x6f, 0xe2, 0x5b, 0xf8, 0x1a, 0x2e, 0x7d, 0x04, 0x03, 0x2f, 0x62,
-	0x66, 0xa6, 0x60, 0x31, 0x4a, 0xdc, 0x4c, 0xe6, 0x9e, 0x73, 0xef, 0x3d, 0x27, 0x27, 0x17, 0xda,
-	0x09, 0x8f, 0xa3, 0x13, 0xf5, 0x0c, 0xb2, 0x3c, 0x95, 0x29, 0x56, 0xd5, 0x3f, 0xb8, 0x80, 0xd6,
-	0x38, 0x49, 0x6e, 0x78, 0x1c, 0x85, 0xec, 0x61, 0xc5, 0x84, 0x44, 0x84, 0x6a, 0x16, 0xc5, 0xcc,
-	0x23, 0x3d, 0xd2, 0xb7, 0x43, 0xfd, 0xc7, 0x0e, 0xd4, 0x12, 0xbe, 0xe0, 0xd2, 0xb3, 0x34, 0x68,
-	0x8a, 0xe0, 0x14, 0x6a, 0x6a, 0x50, 0x60, 0x5f, 0xd1, 0x71, 0x24, 0x3c, 0xd2, 0xb3, 0xfb, 0xee,
-	0x10, 0x07, 0x5a, 0xc6, 0x2c, 0x15, 0x59, 0xba, 0x14, 0x2c, 0x34, 0x0d, 0xc1, 0x0b, 0x81, 0x3f,
-	0x65, 0x1c, 0x5b, 0x60, 0x71, 0xaa, 0xb5, 0x9c, 0xd0, 0xe2, 0x54, 0x29, 0x49, 0x2e, 0x13, 0xa6,
-	0x95, 0x9c, 0xd0, 0x14, 0xd8, 0x03, 0x97, 0x32, 0x31, 0xcf, 0x79, 0x26, 0x79, 0xba, 0xf4, 0x6c,
-	0xcd, 0x95, 0x21, 0xfc, 0x0f, 0xcd, 0x88, 0x2e, 0xf8, 0x72, 0xc6, 0xa9, 0x57, 0xd7, 0x74, 0x43,
-	0xd7, 0x53, 0x8a, 0xc7, 0x00, 0xf3, 0x9c, 0x45, 0x92, 0xd1, 0x59, 0x24, 0xbd, 0x86, 0x26, 0x9d,
-	0x02, 0x19, 0x4b, 0x45, 0xaf, 0x32, 0xba, 0xa5, 0x9b, 0x86, 0x2e, 0x90, 0xb1, 0x0c, 0xee, 0xc0,
-	0x2d, 0xa7, 0xb3, 0xf3, 0x47, 0x0e, 0xf8, 0xb3, 0x0e, 0xfb, 0xb3, 0xf7, 0xfc, 0x05, 0x47, 0xe0,
-	0x4c, 0xe9, 0x76, 0xff, 0x97, 0x3c, 0x86, 0x1b, 0x62, 0xf4, 0x6f, 0x59, 0xfe, 0xc8, 0xe7, 0x0c,
-	0xcf, 0x01, 0x2e, 0xb5, 0x75, 0x05, 0xe2, 0xbf, 0x72, 0xd2, 0x7a, 0x41, 0xf7, 0x9b, 0xf0, 0x83,
-	0x0a, 0x9e, 0x81, 0x7b, 0xcd, 0xa4, 0x02, 0x27, 0x4f, 0x53, 0x8a, 0x6d, 0xd3, 0xb4, 0x93, 0xfd,
-	0x61, 0x6a, 0xa8, 0xa7, 0x8a, 0xfb, 0x10, 0xd8, 0x31, 0x4d, 0xfb, 0xf7, 0xd2, 0x75, 0x3f, 0x47,
-	0x45, 0x50, 0xc1, 0x11, 0xc0, 0x15, 0x4b, 0x58, 0x61, 0xf0, 0x77, 0x42, 0x93, 0xbf, 0xaf, 0x6b,
-	0x9f, 0xbc, 0xad, 0x7d, 0xf2, 0xbe, 0xf6, 0xc9, 0xf3, 0xc6, 0xaf, 0xdc, 0xd7, 0xf5, 0x91, 0x8e,
-	0x3e, 0x02, 0x00, 0x00, 0xff, 0xff, 0x5d, 0x6b, 0xc4, 0xa9, 0xb7, 0x02, 0x00, 0x00,
+	// 321 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0xcf, 0x4a, 0x03, 0x31,
+	0x10, 0xc6, 0x9b, 0xfe, 0x11, 0x76, 0x56, 0x5a, 0x1d, 0x7a, 0x58, 0x2a, 0x2e, 0x35, 0xa7, 0x9e,
+	0x2a, 0xb6, 0x7a, 0xf1, 0xd6, 0x2a, 0x48, 0xc1, 0xd3, 0xfa, 0x00, 0x12, 0x9b, 0xb0, 0x04, 0xb6,
+	0xed, 0xda, 0xa4, 0x82, 0x6f, 0xe2, 0x23, 0x79, 0xf4, 0x11, 0x64, 0xfb, 0x22, 0x92, 0xc9, 0xd6,
+	0xd6, 0xa2, 0xe0, 0x65, 0x99, 0xfd, 0xbe, 0xf9, 0xe6, 0x97, 0x21, 0x81, 0x56, 0xa6, 0x53, 0x71,
+	0xee, 0x3e, 0xfd, 0x7c, 0xb9, 0xb0, 0x0b, 0xac, 0xbb, 0x9a, 0x5f, 0x43, 0x73, 0x94, 0x65, 0xf7,
+	0x3a, 0x15, 0x89, 0x7a, 0x5e, 0x29, 0x63, 0x11, 0xa1, 0x9e, 0x8b, 0x54, 0x45, 0xac, 0xcb, 0x7a,
+	0xb5, 0x84, 0x6a, 0x6c, 0x43, 0x23, 0xd3, 0x33, 0x6d, 0xa3, 0x2a, 0x89, 0xfe, 0x87, 0x5f, 0x40,
+	0xc3, 0x05, 0x0d, 0xf6, 0x9c, 0x9d, 0x0a, 0x13, 0xb1, 0x6e, 0xad, 0x17, 0x0e, 0xb0, 0x4f, 0x18,
+	0x3f, 0xd4, 0xe4, 0x8b, 0xb9, 0x51, 0x89, 0x6f, 0xe0, 0x39, 0x1c, 0xee, 0xca, 0xd8, 0x84, 0xaa,
+	0x96, 0x84, 0x0a, 0x92, 0xaa, 0x96, 0x0e, 0x3e, 0x17, 0x33, 0x45, 0x9c, 0x20, 0xa1, 0x1a, 0x4f,
+	0x01, 0xa6, 0x4b, 0x25, 0xac, 0x92, 0x8f, 0xc2, 0x46, 0x75, 0x72, 0x82, 0x52, 0x19, 0x59, 0x67,
+	0xaf, 0x72, 0xb9, 0xb1, 0x1b, 0xde, 0x2e, 0x95, 0x91, 0xe5, 0x67, 0x10, 0xee, 0x6d, 0x47, 0x00,
+	0xb6, 0x05, 0xf0, 0x13, 0x08, 0x26, 0x72, 0xd3, 0xb0, 0x77, 0xa2, 0xc1, 0x9a, 0xf9, 0x01, 0x0f,
+	0x6a, 0xf9, 0xa2, 0xa7, 0x0a, 0xaf, 0x00, 0x6e, 0x88, 0xed, 0x44, 0x3c, 0xde, 0x5d, 0x95, 0x06,
+	0x74, 0x7e, 0xd9, 0x9e, 0x57, 0xf0, 0x12, 0xc2, 0x3b, 0x65, 0x9d, 0x38, 0x7e, 0x9d, 0x48, 0x6c,
+	0xf9, 0xa6, 0x6f, 0xec, 0x1f, 0xa9, 0x01, 0xa5, 0xca, 0x0b, 0x32, 0xd8, 0xf6, 0x4d, 0x3f, 0x2f,
+	0xac, 0x13, 0x6e, 0xa3, 0x86, 0x57, 0x70, 0x08, 0x70, 0xab, 0x32, 0x55, 0x1e, 0xf0, 0x7f, 0xa0,
+	0xf1, 0xd1, 0x7b, 0x11, 0xb3, 0x8f, 0x22, 0x66, 0x9f, 0x45, 0xcc, 0xde, 0xd6, 0x71, 0xe5, 0xe9,
+	0x80, 0x5e, 0xc9, 0xf0, 0x2b, 0x00, 0x00, 0xff, 0xff, 0xf0, 0xfc, 0x46, 0xb3, 0x38, 0x02, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -657,33 +623,19 @@ func (m *LigaResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		copy(dAtA[i:], m.UpdatedAt)
 		i = encodeVarintLiga(dAtA, i, uint64(len(m.UpdatedAt)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x2a
 	}
 	if len(m.CreatedAt) > 0 {
 		i -= len(m.CreatedAt)
 		copy(dAtA[i:], m.CreatedAt)
 		i = encodeVarintLiga(dAtA, i, uint64(len(m.CreatedAt)))
 		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x22
 	}
-	if len(m.AdminId) > 0 {
-		i -= len(m.AdminId)
-		copy(dAtA[i:], m.AdminId)
-		i = encodeVarintLiga(dAtA, i, uint64(len(m.AdminId)))
-		i--
-		dAtA[i] = 0x32
-	}
-	if len(m.Description) > 0 {
-		i -= len(m.Description)
-		copy(dAtA[i:], m.Description)
-		i = encodeVarintLiga(dAtA, i, uint64(len(m.Description)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.Title) > 0 {
-		i -= len(m.Title)
-		copy(dAtA[i:], m.Title)
-		i = encodeVarintLiga(dAtA, i, uint64(len(m.Title)))
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.Name)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -721,24 +673,10 @@ func (m *LigaRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.AdminId) > 0 {
-		i -= len(m.AdminId)
-		copy(dAtA[i:], m.AdminId)
-		i = encodeVarintLiga(dAtA, i, uint64(len(m.AdminId)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.Description) > 0 {
-		i -= len(m.Description)
-		copy(dAtA[i:], m.Description)
-		i = encodeVarintLiga(dAtA, i, uint64(len(m.Description)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Title) > 0 {
-		i -= len(m.Title)
-		copy(dAtA[i:], m.Title)
-		i = encodeVarintLiga(dAtA, i, uint64(len(m.Title)))
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.Name)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -836,15 +774,7 @@ func (m *LigaResponse) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovLiga(uint64(l))
 	}
-	l = len(m.Title)
-	if l > 0 {
-		n += 1 + l + sovLiga(uint64(l))
-	}
-	l = len(m.Description)
-	if l > 0 {
-		n += 1 + l + sovLiga(uint64(l))
-	}
-	l = len(m.AdminId)
+	l = len(m.Name)
 	if l > 0 {
 		n += 1 + l + sovLiga(uint64(l))
 	}
@@ -868,15 +798,7 @@ func (m *LigaRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Title)
-	if l > 0 {
-		n += 1 + l + sovLiga(uint64(l))
-	}
-	l = len(m.Description)
-	if l > 0 {
-		n += 1 + l + sovLiga(uint64(l))
-	}
-	l = len(m.AdminId)
+	l = len(m.Name)
 	if l > 0 {
 		n += 1 + l + sovLiga(uint64(l))
 	}
@@ -1145,7 +1067,7 @@ func (m *LigaResponse) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1173,73 +1095,9 @@ func (m *LigaResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Title = string(dAtA[iNdEx:postIndex])
+			m.Name = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLiga
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLiga
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLiga
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Description = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 6:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field AdminId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLiga
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLiga
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLiga
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.AdminId = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 7:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
 			}
@@ -1271,7 +1129,7 @@ func (m *LigaResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.CreatedAt = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 8:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedAt", wireType)
 			}
@@ -1356,7 +1214,7 @@ func (m *LigaRequest) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1384,71 +1242,7 @@ func (m *LigaRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Title = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLiga
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLiga
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLiga
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Description = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field AdminId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLiga
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLiga
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLiga
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.AdminId = string(dAtA[iNdEx:postIndex])
+			m.Name = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
