@@ -15,10 +15,12 @@ type Config struct {
 	Environment      string
 	LogLevel         string
 
-	AdminServiceHost    string
-	AdminServicePort    string
-	PostServiceHost    string
-	PostServicePort    string
+	AdminServiceHost string
+	AdminServicePort string
+	PostServiceHost  string
+	PostServicePort  string
+	LigaServiceHost  string
+	LigaServicePort  string
 }
 
 func Load() Config {
@@ -37,6 +39,9 @@ func Load() Config {
 
 	c.PostServiceHost = cast.ToString(getOrReturnDefault("POST_SERVICE_HOST", "localhost"))
 	c.PostServicePort = cast.ToString(getOrReturnDefault("Post_SERVICE_PORT", "8010"))
+
+	c.LigaServiceHost = cast.ToString(getOrReturnDefault("LIGA_SERVICE_HOST", "localhost"))
+	c.LigaServicePort = cast.ToString(getOrReturnDefault("LIGA_SERVICE_PORT", "8020"))
 
 	return c
 }

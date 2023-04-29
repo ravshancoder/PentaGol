@@ -15,7 +15,7 @@ func (r *LigaRepo) CreateLiga(liga *p.LigaRequest) (*p.LigaResponse, error) {
 		values
 			($1) 
 		returning 
-			id created_at, updated_at`, liga.Name).
+			id, name, created_at, updated_at`, liga.Name).
 		Scan(
 			&res.Id,
 			&res.Name,
@@ -101,7 +101,7 @@ func (r *LigaRepo) DeleteLiga(id *p.IdRequest) (*p.LigaResponse, error) {
 		set 
 			deleted_at = $1 
 		where 
-			id = $2 
+			id = $2 and deleted_at is null
 		returning 
 			id, name, created_at, updated_at`, time.Now(), id.Id).
 		Scan(
