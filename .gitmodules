@@ -10,3 +10,6 @@
 [submodule "liga_service/pentagol_protos"]
 	path = liga_service/pentagol_protos
 	url = git@github.com:ravshancoder/pentagol_protos.git
+[submodule "api_getway/pentagol_protos"]
+	path = api_getway/pentagol_protos
+	url = git@github.com:ravshancoder/pentagol_protos.git

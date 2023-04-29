@@ -1,0 +1,731 @@
+definitions:
+  models.Comment:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.CommentRequest:
+    properties:
+      post_id:
+        type: string
+      text:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.Error:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Policy:
+    properties:
+      action:
+        type: string
+      domain:
+        type: string
+      user:
+        type: string
+    type: object
+  models.Post:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.PostRequest:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.RegisterModel:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.StandartErrorModel:
+    properties:
+      error:
+        $ref: '#/definitions/models.Error'
+    type: object
+  models.UpdatePostRequest:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.UpdateUserRequest:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+    type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.UserRegister:
+    properties:
+      code:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      user_type:
+        type: string
+    type: object
+  models.Users:
+    properties:
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+info:
+  contact: {}
+  title: Swagger for user api
+paths:
+  /v1/admin/add/policy:
+    post:
+      consumes:
+      - application/json
+      description: Add Policy for user
+      parameters:
+      - description: Policy
+        in: body
+        name: policy
+        required: true
+        schema:
+          $ref: '#/definitions/models.Policy'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Add Policy User
+      tags:
+      - Sudo
+  /v1/admin/add/role:
+    post:
+      consumes:
+      - application/json
+      description: Add User Role
+      parameters:
+      - description: Policy
+        in: body
+        name: policy
+        required: true
+        schema:
+          $ref: '#/definitions/models.Policy'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Add Role User
+      tags:
+      - Sudo
+  /v1/admin/remove/policy:
+    post:
+      consumes:
+      - application/json
+      description: Remove User Policy
+      parameters:
+      - description: Policy
+        in: body
+        name: policy
+        required: true
+        schema:
+          $ref: '#/definitions/models.Policy'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Remove Policy User
+      tags:
+      - Sudo
+  /v1/comment:
+    post:
+      consumes:
+      - application/json
+      description: This api write comment
+      parameters:
+      - description: Write Comment
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Write comment
+      tags:
+      - Comment
+  /v1/comment/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a comment
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete comment
+      tags:
+      - Comment
+  /v1/comments/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This api gets a comment for post
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get comments for post
+      tags:
+      - Comment
+  /v1/login/{email}/{password}:
+    get:
+      consumes:
+      - application/json
+      description: this api login user
+      parameters:
+      - description: email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: login user api
+      tags:
+      - Register
+  /v1/post:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a post
+      parameters:
+      - description: Create Post
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create post
+      tags:
+      - Post
+  /v1/post/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a post
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete post
+      tags:
+      - Post
+    get:
+      consumes:
+      - application/json
+      description: This api gets a post by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get post by id
+      tags:
+      - Post
+  /v1/post/search:
+    get:
+      consumes:
+      - application/json
+      description: This api searches for users by first name
+      parameters:
+      - description: search
+        in: query
+        name: search
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Users'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: search users by name
+      tags:
+      - Post
+  /v1/posts/{id}:
+    put:
+      consumes:
+      - application/json
+      description: This api updates a post
+      parameters:
+      - description: Update Post
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: update post
+      tags:
+      - Post
+  /v1/user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a user
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete user
+      tags:
+      - User
+    get:
+      consumes:
+      - application/json
+      description: This api gets a user by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get user by id
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: This api updates a user
+      parameters:
+      - description: Update User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: update user
+      tags:
+      - User
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all users
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: This api creates a user
+      parameters:
+      - description: Create User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRegister'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create user
+      tags:
+      - User
+  /v1/users/{search}:
+    get:
+      consumes:
+      - application/json
+      description: This api searches for users by first name
+      parameters:
+      - description: FirstName
+        in: query
+        name: first_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Users'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: search users by name
+      tags:
+      - User
+  /v1/users/register:
+    post:
+      consumes:
+      - application/json
+      description: this api registers
+      parameters:
+      - description: register user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterModel'
+      produces:
+      - application/json
+      responses:
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: register user api
+      tags:
+      - Register
+  /v1/verify/{email}/{code}:
+    get:
+      consumes:
+      - application/json
+      description: this api verifies
+      parameters:
+      - description: email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: verify user api
+      tags:
+      - Register
+securityDefinitions:
+  ApiKeyAuth:
+    description: This is a user service api.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
