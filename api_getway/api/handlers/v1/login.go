@@ -17,7 +17,7 @@ import (
 // Login admin
 // @Summary login admin api
 // @Description this api login admin
-// @Tags login
+// @Tags Admin
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json

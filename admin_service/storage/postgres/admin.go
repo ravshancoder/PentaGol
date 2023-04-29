@@ -7,6 +7,32 @@ import (
 	u "github.com/PentaGol/admin_service/genproto/admin"
 )
 
+func (r *AdminRepo) CreateAdmin(admin *u.AdminRequest) (*u.AdminResponse, error) {
+	var res u.AdminResponse
+	err := r.db.QueryRow(`
+		insert into 
+			admins(name, email, password, refresh_token) 
+		values
+			($1, $2, $3, $4) 
+		returning 
+			id, name, email, refresh_token, created_at, updated_at`, admin.Name, admin.Email, admin.Password, admin.RefreshToken).
+		Scan(
+			&res.Id,
+			&res.Name,
+			&res.Email,
+			&res.RefreshToken,
+			&res.CreatedAt,
+			&res.UpdatedAt,
+		)
+
+	if err != nil {
+		log.Println("failed to create admin")
+		return &u.AdminResponse{}, err
+	}
+
+	return &res, nil
+}
+
 func (r *AdminRepo) GetAdminById(admin *u.IdRequest) (*u.AdminResponse, error) {
 	var res u.AdminResponse
 	err := r.db.QueryRow(`

@@ -61,7 +61,7 @@ func Load() Config {
 	c.PostServicePort = cast.ToString(getOrReturnDefault("POST_SERVICE_PORT", "8010"))
 
 	c.LigaServiceHost = cast.ToString(getOrReturnDefault("LIGA_SERVICE_HOST", "localhost"))
-	c.LigaServicePort = cast.ToString(getOrReturnDefault("LIGA_SERVICE_PORT", ":8020"))
+	c.LigaServicePort = cast.ToString(getOrReturnDefault("LIGA_SERVICE_PORT", "8020"))
 
 	c.CtxTimeout = cast.ToInt(getOrReturnDefault("CTX_TIMEOUT", 7))
 

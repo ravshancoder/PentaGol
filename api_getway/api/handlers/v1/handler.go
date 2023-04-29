@@ -11,7 +11,6 @@ import (
 	"github.com/PentaGol/api_getway/config"
 	"github.com/PentaGol/api_getway/pkg/logger"
 	"github.com/PentaGol/api_getway/services"
-	"github.com/PentaGol/api_getway/storage/repo"
 	"github.com/casbin/casbin/v2"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -21,7 +20,6 @@ type handlerV1 struct {
 	log            logger.Logger
 	serviceManager services.IServiceManager
 	cfg            config.Config
-	redis          repo.RedisRepo
 	jwtHandler     token.JWTHandler
 	casbinEnforcer *casbin.Enforcer
 }
@@ -30,7 +28,6 @@ type HandlerV1Config struct {
 	Logger         logger.Logger
 	ServiceManager services.IServiceManager
 	Cfg            config.Config
-	Redis          repo.RedisRepo
 	JwtHandler     token.JWTHandler
 	CasbinEnforcer *casbin.Enforcer
 }
@@ -40,7 +37,6 @@ func New(c *HandlerV1Config) *handlerV1 {
 		log:            c.Logger,
 		serviceManager: c.ServiceManager,
 		cfg:            c.Cfg,
-		redis:          c.Redis,
 		jwtHandler:     c.JwtHandler,
 		casbinEnforcer: c.CasbinEnforcer,
 	}

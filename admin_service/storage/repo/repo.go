@@ -5,6 +5,7 @@ import (
 )
 
 type AdminStoreI interface {
+	CreateAdmin(*u.AdminRequest) (*u.AdminResponse, error)
 	GetAdminById(*u.IdRequest) (*u.AdminResponse, error)
 	CheckFiedld(*u.CheckFieldReq) (*u.CheckFieldRes, error)
 	GetByEmail(*u.EmailReq) (*u.AdminResponse, error)

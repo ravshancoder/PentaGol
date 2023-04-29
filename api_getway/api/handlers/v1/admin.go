@@ -15,7 +15,7 @@ import (
 
 // @Summary get user by id
 // @Description This api gets a user by id
-// @Tags User
+// @Tags Admin
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json

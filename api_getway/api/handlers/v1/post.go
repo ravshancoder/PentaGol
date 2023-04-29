@@ -162,7 +162,7 @@ func (h *handlerV1) GetPostById(c *gin.Context) {
 // @Success 200 {object} []models.Posts
 // @Failure 400 {object} models.StandartErrorModel
 // @Failure 500 {object} models.StandartErrorModel
-// @Router v1/posts [get]
+// @Router /v1/posts [get]
 func (h *handlerV1) GetAllPosts(c *gin.Context) {
 	queryParams := c.Request.URL.Query()
 	params, errstr := utils.ParseQueryParams(queryParams)

@@ -28,6 +28,18 @@ func NewAdminService(db *sqlx.DB, log logger.Logger, client grpcclient.Clients) 
 	}
 }
 
+
+func (s *AdminService) CreateAdmin(ctx context.Context, req *u.AdminRequest) (*u.AdminResponse, error) {
+	res, err := s.storage.Admin().CreateAdmin(req)
+	if err != nil {
+		log.Println("failed to creating Admin: ", err)
+		return &u.AdminResponse{}, err
+	}
+
+	return res, nil
+}
+
+
 func (s *AdminService) GetAdminById(ctx context.Context, req *u.IdRequest) (*u.AdminResponse, error) {
 	res, err := s.storage.Admin().GetAdminById(req)
 	if err != nil {

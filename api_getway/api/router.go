@@ -9,7 +9,6 @@ import (
 	"github.com/PentaGol/api_getway/config"
 	"github.com/PentaGol/api_getway/pkg/logger"
 	"github.com/PentaGol/api_getway/services"
-	"github.com/PentaGol/api_getway/storage/repo"
 
 	_ "github.com/PentaGol/api_getway/api/docs"
 	swaggerFiles "github.com/swaggo/files"
@@ -23,7 +22,6 @@ type Option struct {
 	Conf           config.Config
 	Logger         logger.Logger
 	ServiceManager services.IServiceManager
-	RedisRepo      repo.RedisRepo
 	CasbinEnforcer *casbin.Enforcer
 }
 
@@ -45,7 +43,6 @@ func New(option Option) *gin.Engine {
 		Logger:         option.Logger,
 		ServiceManager: option.ServiceManager,
 		Cfg:            option.Conf,
-		Redis:          option.RedisRepo,
 		CasbinEnforcer: option.CasbinEnforcer,
 	})
 
@@ -66,6 +63,7 @@ func New(option Option) *gin.Engine {
 	// posts
 	api.POST("/post", handlerV1.CreatePost)
 	api.GET("/post/:id", handlerV1.GetPostById)
+	api.GET("/posts", handlerV1.GetAllPosts)
 	api.PUT("/posts/:id", handlerV1.UpdatePost)
 	api.DELETE("/post/:id", handlerV1.DeletePost)
 
