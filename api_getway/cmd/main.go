@@ -25,6 +25,7 @@ func main() {
 		logger.String("database", cfg.PostgresDatabase),
 	)
 
+
 	psqlString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		cfg.PostgresHost,
 		cfg.PostgresPort,

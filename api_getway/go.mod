@@ -7,6 +7,7 @@ require (
 	github.com/casbin/casbin/v2 v2.68.0
 	github.com/casbin/gorm-adapter/v2 v2.1.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.0
 	github.com/golang/protobuf v1.5.3
 	github.com/spf13/cast v1.5.0

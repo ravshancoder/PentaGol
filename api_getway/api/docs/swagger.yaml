@@ -26,6 +26,61 @@ definitions:
       message:
         type: string
     type: object
+  models.GameRequest:
+    properties:
+      condition:
+        type: boolean
+      first_team_id:
+        type: integer
+      first_team_point:
+        type: integer
+      liga_id:
+        type: integer
+      result_first_team:
+        type: integer
+      result_second_team:
+        type: integer
+      second_team_id:
+        type: integer
+      second_team_point:
+        type: integer
+      time:
+        type: string
+    type: object
+  models.GameResponse:
+    properties:
+      condition:
+        type: boolean
+      created_at:
+        type: string
+      first_team_id:
+        type: integer
+      first_team_point:
+        type: integer
+      id:
+        type: integer
+      liga_id:
+        type: integer
+      result_first_team:
+        type: integer
+      result_second_team:
+        type: integer
+      second_team_id:
+        type: integer
+      second_team_point:
+        type: integer
+      time:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Games:
+    properties:
+      games:
+        items:
+          $ref: '#/definitions/models.GameResponse'
+        type: array
+    type: object
   models.LigaRequest:
     properties:
       name:
@@ -48,6 +103,16 @@ definitions:
         items:
           $ref: '#/definitions/models.LigaResponse'
         type: array
+    type: object
+  models.LoginReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
     type: object
   models.Post:
     properties:
@@ -163,6 +228,137 @@ paths:
       summary: get admin by id
       tags:
       - Admin
+  /v1/game:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a game
+      parameters:
+      - description: CreateGame
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.GameRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GameResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create game
+      tags:
+      - Game
+  /v1/game/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a game
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GameResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete game
+      tags:
+      - Game
+    get:
+      consumes:
+      - application/json
+      description: This api gets a game by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GameResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get game by id
+      tags:
+      - Game
+  /v1/games:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all games
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Games'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all games
+      tags:
+      - Game
   /v1/liga:
     post:
       consumes:
@@ -294,22 +490,18 @@ paths:
       summary: get all ligas
       tags:
       - Liga
-  /v1/login/{email}/{password}:
-    get:
+  /v1/login:
+    post:
       consumes:
       - application/json
       description: this api login admin
       parameters:
-      - description: email
-        in: path
-        name: email
+      - description: data
+        in: body
+        name: data
         required: true
-        type: string
-      - description: password
-        in: path
-        name: password
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.LoginReq'
       produces:
       - application/json
       responses: {}

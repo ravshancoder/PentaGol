@@ -3,8 +3,9 @@ package api
 import (
 	jwthandler "github.com/PentaGol/api_getway/api/token"
 	"github.com/casbin/casbin/v2"
-	
-	"github.com/PentaGol/api_getway/api/handlers/v1"
+	"github.com/gin-contrib/cors"
+
+	v1 "github.com/PentaGol/api_getway/api/handlers/v1"
 	"github.com/PentaGol/api_getway/api/middileware"
 	"github.com/PentaGol/api_getway/config"
 	"github.com/PentaGol/api_getway/pkg/logger"
@@ -36,6 +37,12 @@ type Option struct {
 func New(option Option) *gin.Engine {
 	router := gin.New()
 
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	corsConfig.AllowCredentials = true
+	corsConfig.AllowHeaders = append(corsConfig.AllowHeaders, "*")
+	router.Use(cors.New(corsConfig))
+
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 
@@ -59,7 +66,7 @@ func New(option Option) *gin.Engine {
 	api.POST("/admin", handlerV1.CreateAdmin)
 
 	// login
-	api.GET("/login/:email/:password", handlerV1.Login)
+	api.POST("/login", handlerV1.Login)
 
 	// posts
 	api.GET("/post/:id", handlerV1.GetPostById)
@@ -74,7 +81,11 @@ func New(option Option) *gin.Engine {
 	api.GET("/ligas", handlerV1.GetAllLigas)
 	api.DELETE("/liga/:id", handlerV1.DeleteLiga)
 
-
+	//Game
+	api.POST("/game", handlerV1.CreateGame)
+	api.GET("/game/:id", handlerV1.GetGameById)
+	api.GET("/games", handlerV1.GetAllGames)
+	api.DELETE("/game/:id", handlerV1.DeleteGame)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

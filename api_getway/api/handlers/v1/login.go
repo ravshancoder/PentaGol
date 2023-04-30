@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 
 	"net/http"
@@ -21,23 +22,26 @@ import (
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json
-// @Param        email  	path string true "email"
-// @Param        password   path string true "password"
+// @Param        data  	body models.LoginReq true "data"
 // @Succes       200		{object}	models.LoginAdmin
 // Failure       500        {object}  models.Error
 // Failure       400        {object}  models.Error
 // Failure       404        {object}  models.Error
-// @Router /v1/login/{email}/{password} [get]
+// @Router /v1/login [post]
 func (h *handlerV1) Login(c *gin.Context) {
-	var (
-		email    = c.Param("email")
-		password = c.Param("password")
-	)
+	var req models.LoginReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("error binding request", l.Error(err))
+		return
+	}
 	// fmt.Println("Password: ", password, "	Email: ", email)
-
+	fmt.Println(req)
 	res, err := h.serviceManager.AdminService().GetByEmail(
 		context.Background(), &pu.EmailReq{
-			Email: email,
+			Email: req.Email,
 		},
 	)
 	if err != nil {
@@ -48,7 +52,7 @@ func (h *handlerV1) Login(c *gin.Context) {
 		return
 	}
 
-	if !etc.CheckPasswordHash(password, res.Password) {
+	if !etc.CheckPasswordHash(req.Password, res.Password) {
 		c.JSON(http.StatusNotFound, gin.H{
 			"error": "Passwrod or Email error",
 		})

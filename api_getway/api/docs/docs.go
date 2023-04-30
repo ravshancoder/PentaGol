@@ -116,6 +116,212 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/game": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This api creates a game",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Game"
+                ],
+                "summary": "create game",
+                "parameters": [
+                    {
+                        "description": "CreateGame",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GameRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GameResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/game/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This api gets a game by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Game"
+                ],
+                "summary": "get game by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GameResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This api deletes a game",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Game"
+                ],
+                "summary": "delete game",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GameResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/games": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This api gets all games",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Game"
+                ],
+                "summary": "get all games",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Games"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/liga": {
             "post": {
                 "security": [
@@ -322,8 +528,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/login/{email}/{password}": {
-            "get": {
+        "/v1/login": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -342,18 +548,13 @@ const docTemplate = `{
                 "summary": "login admin api",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "email",
-                        "name": "email",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "password",
-                        "name": "password",
-                        "in": "path",
-                        "required": true
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginReq"
+                        }
                     }
                 ],
                 "responses": {}
@@ -664,6 +865,90 @@ const docTemplate = `{
                 }
             }
         },
+        "models.GameRequest": {
+            "type": "object",
+            "properties": {
+                "condition": {
+                    "type": "boolean"
+                },
+                "first_team_id": {
+                    "type": "integer"
+                },
+                "first_team_point": {
+                    "type": "integer"
+                },
+                "liga_id": {
+                    "type": "integer"
+                },
+                "result_first_team": {
+                    "type": "integer"
+                },
+                "result_second_team": {
+                    "type": "integer"
+                },
+                "second_team_id": {
+                    "type": "integer"
+                },
+                "second_team_point": {
+                    "type": "integer"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GameResponse": {
+            "type": "object",
+            "properties": {
+                "condition": {
+                    "type": "boolean"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "first_team_id": {
+                    "type": "integer"
+                },
+                "first_team_point": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "liga_id": {
+                    "type": "integer"
+                },
+                "result_first_team": {
+                    "type": "integer"
+                },
+                "result_second_team": {
+                    "type": "integer"
+                },
+                "second_team_id": {
+                    "type": "integer"
+                },
+                "second_team_point": {
+                    "type": "integer"
+                },
+                "time": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Games": {
+            "type": "object",
+            "properties": {
+                "games": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.GameResponse"
+                    }
+                }
+            }
+        },
         "models.LigaRequest": {
             "type": "object",
             "properties": {
@@ -697,6 +982,21 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.LigaResponse"
                     }
+                }
+            }
+        },
+        "models.LoginReq": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
                 }
             }
         },
