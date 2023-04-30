@@ -19,7 +19,6 @@ import (
 // @Summary login admin api
 // @Description this api login admin
 // @Tags Admin
-// @Security ApiKeyAuth
 // @Accept json
 // @Produce json
 // @Param        data  	body models.LoginReq true "data"
