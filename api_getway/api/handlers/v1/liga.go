@@ -192,15 +192,15 @@ func (h *handlerV1) CreateGame(c *gin.Context) {
 	}
 
 	response, err := h.serviceManager.LigaService().CreateGame(context.Background(), &pu.GameRequest{
-		Time: body.Time,
-		Condtion: body.Condtion,
-		FirstTeamId: body.FirstTeamId,
-		SecondTeamId: body.SecondTeamId,
-		ResultFirstTeam: body.ResultFirstTeam,
+		Time:             body.Time,
+		Condtion:         body.Condtion,
+		FirstTeamId:      body.FirstTeamId,
+		SecondTeamId:     body.SecondTeamId,
+		ResultFirstTeam:  body.ResultFirstTeam,
 		ResultSecondTeam: body.ResultSecondTeam,
-		FirstTeamPoint: body.FirstTeamPoint,
-		SecondTeamPoint: body.SecondTeamPoint,
-		LigaId: body.LigaId,
+		FirstTeamPoint:   body.FirstTeamPoint,
+		SecondTeamPoint:  body.SecondTeamPoint,
+		LigaId:           body.LigaId,
 	})
 
 	if err != nil {
@@ -306,5 +306,120 @@ func (h *handlerV1) DeleteGame(c *gin.Context) {
 		return
 	}
 
+	c.JSON(http.StatusOK, response)
+}
+
+// club
+// ----------------------------------------------
+
+// @Summary create club
+// @Description This api creates a club
+// @Tags Club
+// @Security ApiKeyAuth
+// @Accept json
+// @Produce json
+// @Param body body models.ClubRequest true "CreateClub"
+// @Success 200 {object} models.ClubResponse
+// @Failure 400 {object} models.StandartErrorModel
+// @Failure 500 {object} models.StandartErrorModel
+// @Router /v1/club [post]
+func (h *handlerV1) CreateClub(c *gin.Context) {
+
+	fmt.Println(c.GetHeader("Authorization"))
+	var (
+		body        models.ClubRequest
+		jspbMarshal protojson.MarshalOptions
+	)
+
+	jspbMarshal.UseProtoNames = true
+
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("Failed to bind json: ", l.Error(err))
+		return
+	}
+
+	response, err := h.serviceManager.LigaService().CreateClub(context.Background(), &pu.ClubRequest{
+		Name:   body.Name,
+		Points: int64(body.Points),
+	})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed to create club", l.Error(err))
+		return
+	}
+
+	c.JSON(http.StatusOK, response)
+}
+
+// @Summary get club by id
+// @Description This api gets a Club by id
+// @Tags Club
+// @Security ApiKeyAuth
+// @Accept json
+// @Produce json
+// @Param id path string true "Id"
+// @Success 200 {object} models.ClubResponse
+// @Failure 400 {object} models.StandartErrorModel
+// @Failure 500 {object} models.StandartErrorModel
+// @Router /v1/club/{id} [get]
+func (h *handlerV1) GetClubById(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+
+	response, err := h.serviceManager.LigaService().GetClubById(context.Background(), &pu.IdRequest{Id: int64(id)})
+	if err != nil {
+		statusCode := http.StatusInternalServerError
+		if status.Code(err) == codes.NotFound {
+			statusCode = http.StatusNotFound
+		}
+		c.JSON(statusCode, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed to get club by id: ", l.Error(err))
+		return
+	}
+
+	c.JSON(http.StatusOK, response)
+}
+
+// @Summary get all clubs
+// @Description This api gets all clubs
+// @Tags Club
+// @Security ApiKeyAuth
+// @Accept json
+// @Produce json
+// @Param limit query int true "Limit"
+// @Param page query int true "Page"
+// @Success 200 {object} []models.Clubs
+// @Failure 400 {object} models.StandartErrorModel
+// @Failure 500 {object} models.StandartErrorModel
+// @Router /v1/clubs [get]
+func (h *handlerV1) GetAllClubs(c *gin.Context) {
+	queryParams := c.Request.URL.Query()
+	params, errstr := utils.ParseQueryParams(queryParams)
+	if errstr != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": errstr[0],
+		})
+		h.log.Error("Failed to get all clubs: " + errstr[0])
+		return
+	}
+	response, err := h.serviceManager.LigaService().GetAllClubs(context.Background(), &pu.AllClubRequest{
+		Limit: params.Limit,
+		Page:  params.Page,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("Failed to get all clubs: ", l.Error(err))
+		return
+	}
 	c.JSON(http.StatusOK, response)
 }

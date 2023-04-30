@@ -45,12 +45,12 @@ func Load() Config {
 	c.PostgresDatabase = cast.ToString(getOrReturnDefault("POSTGRES_DATABASE", "admindb"))
 	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
 
-	c.Environment = cast.ToString(getOrReturnDefault("ENVIRONMENT", "develop"))
+	c.Environment = cast.ToString(getOrReturnDefault("R", "develop"))
 
 	c.SiginKey = cast.ToString(getOrReturnDefault("SIGNING_KEY", "ravshanSignIn"))
 
 	c.AuthConfigPath = cast.ToString(getOrReturnDefault("CASBIN_CONFIG_PATH", "./config/rback_model.conf"))
-	
+
 	c.HTTPPort = cast.ToString(getOrReturnDefault("HTTP_PORT", ":8080"))
 
 	c.AdminServiceHost = cast.ToString(getOrReturnDefault("ADMIN_SERVICE_HOST", "localhost"))

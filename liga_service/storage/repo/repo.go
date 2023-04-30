@@ -18,3 +18,8 @@ type GameStorageI interface {
 	DeleteGame(*p.IdRequest) (*p.GameResponse, error)
 }
 
+type ClubStorageI interface {
+	CreateClub(*p.ClubRequest) (*p.ClubResponse, error)
+	GetClubById(*p.IdRequest) (*p.ClubResponse, error)
+	GetAllClubs(*p.AllClubRequest) (*p.Clubs, error)
+}

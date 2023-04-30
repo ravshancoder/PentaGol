@@ -21,6 +21,33 @@ definitions:
       password:
         type: string
     type: object
+  models.ClubRequest:
+    properties:
+      name:
+        type: string
+      points:
+        type: integer
+    type: object
+  models.ClubResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      points:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  models.Clubs:
+    properties:
+      clubs:
+        items:
+          $ref: '#/definitions/models.ClubResponse'
+        type: array
+    type: object
   models.Error:
     properties:
       message:
@@ -228,6 +255,107 @@ paths:
       summary: get admin by id
       tags:
       - Admin
+  /v1/club:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a club
+      parameters:
+      - description: CreateClub
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ClubRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ClubResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create club
+      tags:
+      - Club
+  /v1/club/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This api gets a Club by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ClubResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get club by id
+      tags:
+      - Club
+  /v1/clubs:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all clubs
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Clubs'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all clubs
+      tags:
+      - Club
   /v1/game:
     post:
       consumes:

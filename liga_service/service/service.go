@@ -107,3 +107,34 @@ func (s *LigaService) DeleteGame(ctx context.Context, req *p.IdRequest) (*p.Game
 
 	return res, err
 }
+
+// club
+func (s *LigaService) CreateClub(ctx context.Context, req *p.ClubRequest) (*p.ClubResponse, error) {
+	res, err := s.storage.Club().CreateClub(req)
+	if err != nil {
+		log.Println("failed to create Club: ", err)
+		return &p.ClubResponse{}, err
+	}
+
+	return res, nil
+}
+
+func (s *LigaService) GetClubById(ctx context.Context, req *p.IdRequest) (*p.ClubResponse, error) {
+	res, err := s.storage.Club().GetClubById(req)
+	if err != nil {
+		log.Println("failed to get Club by id: ", err)
+		return &p.ClubResponse{}, err
+	}
+
+	return res, nil
+}
+
+func (s *LigaService) GetAllClubs(ctx context.Context, req *p.AllClubRequest) (*p.Clubs, error) {
+	res, err := s.storage.Club().GetAllClubs(req)
+	if err != nil {
+		log.Println("failed to get all Club: ", err)
+		return &p.Clubs{}, err
+	}
+
+	return res, nil
+}

@@ -79,7 +79,7 @@ func (r *Repo) GetGameById(game *p.IdRequest) (*p.GameResponse, error) {
 		from 
 			games 
 		where 
-			id = $1 and deleted_at is null`, game.Id).
+			id = $1`, game.Id).
 		Scan(
 			&res.Id,
 			&res.Time,
@@ -124,8 +124,6 @@ func (r *Repo) GetAllGames(req *p.AllGameRequest) (*p.Games, error) {
 			updated_at 
 		from 
 			games 
-		where 
-			deleted_at is null 
 		limit $1 offset $2`, req.Limit, offset,
 	)
 	if err != nil {
@@ -168,7 +166,7 @@ func (r *Repo) DeleteGame(id *p.IdRequest) (*p.GameResponse, error) {
 		set 
 			deleted_at = $1 
 		where 
-			id = $2 and deleted_at is null
+			id = $2
 		returning 
 			id, 
 			time,

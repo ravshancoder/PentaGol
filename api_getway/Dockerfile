@@ -11,7 +11,10 @@ FROM alpine:3.16
 
 WORKDIR /app
 
+RUN mkdir config
+
 COPY --from=builder /app/main .
+COPY ./config/rback_model.conf ./config/rback_model.conf
 
 EXPOSE 8080
 

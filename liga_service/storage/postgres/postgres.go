@@ -17,3 +17,9 @@ func NewGameRepo(db *sqlx.DB) *Repo {
 		db: db,
 	}
 }
+
+func NewClubRepo(db *sqlx.DB) *Repo {
+	return &Repo{
+		db: db,
+	}
+}

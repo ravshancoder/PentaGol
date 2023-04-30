@@ -4,6 +4,7 @@ package models
 // ---------------------------------------
 type LigaRequest struct {
 	Name string `json:"name"`
+
 }
 
 type LigaResponse struct {
@@ -48,4 +49,24 @@ type GameResponse struct {
 
 type Games struct {
 	Games []GameResponse `json:"games"`
+}
+
+
+// Club
+// ---------------------------------------
+type ClubRequest struct {
+	Name string `json:"name"`
+	Points int `json:"points"`
+}
+
+type ClubResponse struct {
+	Id        int64  `json:"id"`
+	Name      string `json:"name"`
+	Points int `json:"points"`
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
+}
+
+type Clubs struct {
+	Clubs []ClubResponse `json:"clubs"`
 }
