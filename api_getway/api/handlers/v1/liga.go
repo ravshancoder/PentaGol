@@ -200,34 +200,35 @@ func (h *handlerV1) CreateGame(c *gin.Context) {
 		ResultSecondTeam: body.ResultSecondTeam,
 		FirstTeamPoint: body.FirstTeamPoint,
 		SecondTeamPoint: body.SecondTeamPoint,
+		LigaId: body.LigaId,
 	})
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
-		h.log.Error("failed to create liga", l.Error(err))
+		h.log.Error("failed to create game", l.Error(err))
 		return
 	}
 
 	c.JSON(http.StatusOK, response)
 }
 
-// @Summary get liga by id
-// @Description This api gets a Liga by id
-// @Tags Liga
+// @Summary get game by id
+// @Description This api gets a game by id
+// @Tags Game
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json
 // @Param id path string true "Id"
-// @Success 200 {object} models.LigaResponse
+// @Success 200 {object} models.GameResponse
 // @Failure 400 {object} models.StandartErrorModel
 // @Failure 500 {object} models.StandartErrorModel
-// @Router /v1/liga/{id} [get]
+// @Router /v1/game/{id} [get]
 func (h *handlerV1) GetGameById(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
-	response, err := h.serviceManager.LigaService().GetLigaById(context.Background(), &pu.IdRequest{Id: int64(id)})
+	response, err := h.serviceManager.LigaService().GetGameById(context.Background(), &pu.IdRequest{Id: int64(id)})
 	if err != nil {
 		statusCode := http.StatusInternalServerError
 		if status.Code(err) == codes.NotFound {
@@ -236,25 +237,25 @@ func (h *handlerV1) GetGameById(c *gin.Context) {
 		c.JSON(statusCode, gin.H{
 			"error": err.Error(),
 		})
-		h.log.Error("failed to get liga by id: ", l.Error(err))
+		h.log.Error("failed to get game by id: ", l.Error(err))
 		return
 	}
 
 	c.JSON(http.StatusOK, response)
 }
 
-// @Summary get all ligas
-// @Description This api gets all ligas
-// @Tags Liga
+// @Summary get all games
+// @Description This api gets all games
+// @Tags Game
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json
 // @Param limit query int true "Limit"
 // @Param page query int true "Page"
-// @Success 200 {object} []models.Ligas
+// @Success 200 {object} []models.Games
 // @Failure 400 {object} models.StandartErrorModel
 // @Failure 500 {object} models.StandartErrorModel
-// @Router /v1/ligas [get]
+// @Router /v1/games [get]
 func (h *handlerV1) GetAllGames(c *gin.Context) {
 	queryParams := c.Request.URL.Query()
 	params, errstr := utils.ParseQueryParams(queryParams)
@@ -262,10 +263,10 @@ func (h *handlerV1) GetAllGames(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": errstr[0],
 		})
-		h.log.Error("Failed to get all ligas: " + errstr[0])
+		h.log.Error("Failed to get all games: " + errstr[0])
 		return
 	}
-	response, err := h.serviceManager.LigaService().GetAllLigas(context.Background(), &pu.AllLigaRequest{
+	response, err := h.serviceManager.LigaService().GetAllGames(context.Background(), &pu.AllGameRequest{
 		Limit: params.Limit,
 		Page:  params.Page,
 	})
@@ -273,27 +274,27 @@ func (h *handlerV1) GetAllGames(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
-		h.log.Error("Failed to get all ligas: ", l.Error(err))
+		h.log.Error("Failed to get all games: ", l.Error(err))
 		return
 	}
 	c.JSON(http.StatusOK, response)
 }
 
-// @Summary delete liga
-// @Description This api deletes a liga
-// @Tags Liga
+// @Summary delete game
+// @Description This api deletes a game
+// @Tags Game
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json
 // @Param id path int true "Id"
-// @Success 200 {object} models.LigaResponse
+// @Success 200 {object} models.GameResponse
 // @Failure 400 {object} models.StandartErrorModel
 // @Failure 500 {object} models.StandartErrorModel
-// @Router /v1/liga/{id} [delete]
+// @Router /v1/game/{id} [delete]
 func (h *handlerV1) DeleteGame(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
-	response, err := h.serviceManager.LigaService().DeleteLiga(context.Background(), &pu.IdRequest{
+	response, err := h.serviceManager.LigaService().DeleteGame(context.Background(), &pu.IdRequest{
 		Id: int64(id),
 	})
 
