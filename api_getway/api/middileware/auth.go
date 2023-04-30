@@ -78,7 +78,6 @@ func (a *JwtRoleAuth) CheckPermission(r *http.Request) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	fmt.Println(admin)
 	method := r.Method
 	path := r.URL.Path
 	fmt.Println(r.Method)

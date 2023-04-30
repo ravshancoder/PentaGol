@@ -68,6 +68,14 @@ func New(option Option) *gin.Engine {
 	api.GET("/posts", handlerV1.GetAllPosts)
 	api.DELETE("/post/:id", handlerV1.DeletePost)
 
+	// Liga
+	api.POST("/liga", handlerV1.CreateLiga)
+	api.GET("/liga/:id", handlerV1.GetLigaById)
+	api.GET("/ligas", handlerV1.GetAllLigas)
+	api.DELETE("/liga/:id", handlerV1.DeleteLiga)
+
+
+
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

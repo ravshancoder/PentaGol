@@ -26,6 +26,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+// liga
 type AllLigaRequest struct {
 	Page                 int64    `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
 	Limit                int64    `protobuf:"varint,2,opt,name=limit,proto3" json:"limit"`
@@ -293,38 +294,408 @@ func (m *IdRequest) GetId() int64 {
 	return 0
 }
 
+// Game
+type AllGameRequest struct {
+	Page                 int64    `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	Limit                int64    `protobuf:"varint,2,opt,name=limit,proto3" json:"limit"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AllGameRequest) Reset()         { *m = AllGameRequest{} }
+func (m *AllGameRequest) String() string { return proto.CompactTextString(m) }
+func (*AllGameRequest) ProtoMessage()    {}
+func (*AllGameRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bf1f8d8504eb0d8c, []int{5}
+}
+func (m *AllGameRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *AllGameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_AllGameRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *AllGameRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AllGameRequest.Merge(m, src)
+}
+func (m *AllGameRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *AllGameRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AllGameRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AllGameRequest proto.InternalMessageInfo
+
+func (m *AllGameRequest) GetPage() int64 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+func (m *AllGameRequest) GetLimit() int64 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+type Games struct {
+	Games                []*GameResponse `protobuf:"bytes,1,rep,name=Games,proto3" json:"Games"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *Games) Reset()         { *m = Games{} }
+func (m *Games) String() string { return proto.CompactTextString(m) }
+func (*Games) ProtoMessage()    {}
+func (*Games) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bf1f8d8504eb0d8c, []int{6}
+}
+func (m *Games) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Games) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Games.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Games) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Games.Merge(m, src)
+}
+func (m *Games) XXX_Size() int {
+	return m.Size()
+}
+func (m *Games) XXX_DiscardUnknown() {
+	xxx_messageInfo_Games.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Games proto.InternalMessageInfo
+
+func (m *Games) GetGames() []*GameResponse {
+	if m != nil {
+		return m.Games
+	}
+	return nil
+}
+
+type GameResponse struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
+	Time                 string   `protobuf:"bytes,2,opt,name=time,proto3" json:"time"`
+	Condtion             string   `protobuf:"bytes,3,opt,name=condtion,proto3" json:"condtion"`
+	FirstTeamId          string   `protobuf:"bytes,4,opt,name=first_team_id,json=firstTeamId,proto3" json:"first_team_id"`
+	SecondTeamId         string   `protobuf:"bytes,5,opt,name=second_team_id,json=secondTeamId,proto3" json:"second_team_id"`
+	ResultFirstTeam      string   `protobuf:"bytes,6,opt,name=result_first_team,json=resultFirstTeam,proto3" json:"result_first_team"`
+	ResultSecondTeam     string   `protobuf:"bytes,7,opt,name=result_second_team,json=resultSecondTeam,proto3" json:"result_second_team"`
+	FirstTeamPoint       string   `protobuf:"bytes,8,opt,name=first_team_point,json=firstTeamPoint,proto3" json:"first_team_point"`
+	SecondTeamPoint      string   `protobuf:"bytes,9,opt,name=second_team_point,json=secondTeamPoint,proto3" json:"second_team_point"`
+	LigaId               string   `protobuf:"bytes,10,opt,name=liga_id,json=ligaId,proto3" json:"liga_id"`
+	CreatedAt            string   `protobuf:"bytes,11,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string   `protobuf:"bytes,12,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GameResponse) Reset()         { *m = GameResponse{} }
+func (m *GameResponse) String() string { return proto.CompactTextString(m) }
+func (*GameResponse) ProtoMessage()    {}
+func (*GameResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bf1f8d8504eb0d8c, []int{7}
+}
+func (m *GameResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GameResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GameResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GameResponse.Merge(m, src)
+}
+func (m *GameResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *GameResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GameResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GameResponse proto.InternalMessageInfo
+
+func (m *GameResponse) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *GameResponse) GetTime() string {
+	if m != nil {
+		return m.Time
+	}
+	return ""
+}
+
+func (m *GameResponse) GetCondtion() string {
+	if m != nil {
+		return m.Condtion
+	}
+	return ""
+}
+
+func (m *GameResponse) GetFirstTeamId() string {
+	if m != nil {
+		return m.FirstTeamId
+	}
+	return ""
+}
+
+func (m *GameResponse) GetSecondTeamId() string {
+	if m != nil {
+		return m.SecondTeamId
+	}
+	return ""
+}
+
+func (m *GameResponse) GetResultFirstTeam() string {
+	if m != nil {
+		return m.ResultFirstTeam
+	}
+	return ""
+}
+
+func (m *GameResponse) GetResultSecondTeam() string {
+	if m != nil {
+		return m.ResultSecondTeam
+	}
+	return ""
+}
+
+func (m *GameResponse) GetFirstTeamPoint() string {
+	if m != nil {
+		return m.FirstTeamPoint
+	}
+	return ""
+}
+
+func (m *GameResponse) GetSecondTeamPoint() string {
+	if m != nil {
+		return m.SecondTeamPoint
+	}
+	return ""
+}
+
+func (m *GameResponse) GetLigaId() string {
+	if m != nil {
+		return m.LigaId
+	}
+	return ""
+}
+
+func (m *GameResponse) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *GameResponse) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return ""
+}
+
+type GameRequest struct {
+	Time                 string   `protobuf:"bytes,1,opt,name=time,proto3" json:"time"`
+	Condtion             string   `protobuf:"bytes,2,opt,name=condtion,proto3" json:"condtion"`
+	FirstTeamId          string   `protobuf:"bytes,3,opt,name=first_team_id,json=firstTeamId,proto3" json:"first_team_id"`
+	SecondTeamId         string   `protobuf:"bytes,4,opt,name=second_team_id,json=secondTeamId,proto3" json:"second_team_id"`
+	ResultFirstTeam      string   `protobuf:"bytes,5,opt,name=result_first_team,json=resultFirstTeam,proto3" json:"result_first_team"`
+	ResultSecondTeam     string   `protobuf:"bytes,6,opt,name=result_second_team,json=resultSecondTeam,proto3" json:"result_second_team"`
+	FirstTeamPoint       string   `protobuf:"bytes,7,opt,name=first_team_point,json=firstTeamPoint,proto3" json:"first_team_point"`
+	SecondTeamPoint      string   `protobuf:"bytes,8,opt,name=second_team_point,json=secondTeamPoint,proto3" json:"second_team_point"`
+	LigaId               string   `protobuf:"bytes,9,opt,name=liga_id,json=ligaId,proto3" json:"liga_id"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GameRequest) Reset()         { *m = GameRequest{} }
+func (m *GameRequest) String() string { return proto.CompactTextString(m) }
+func (*GameRequest) ProtoMessage()    {}
+func (*GameRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bf1f8d8504eb0d8c, []int{8}
+}
+func (m *GameRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GameRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GameRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GameRequest.Merge(m, src)
+}
+func (m *GameRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *GameRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GameRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GameRequest proto.InternalMessageInfo
+
+func (m *GameRequest) GetTime() string {
+	if m != nil {
+		return m.Time
+	}
+	return ""
+}
+
+func (m *GameRequest) GetCondtion() string {
+	if m != nil {
+		return m.Condtion
+	}
+	return ""
+}
+
+func (m *GameRequest) GetFirstTeamId() string {
+	if m != nil {
+		return m.FirstTeamId
+	}
+	return ""
+}
+
+func (m *GameRequest) GetSecondTeamId() string {
+	if m != nil {
+		return m.SecondTeamId
+	}
+	return ""
+}
+
+func (m *GameRequest) GetResultFirstTeam() string {
+	if m != nil {
+		return m.ResultFirstTeam
+	}
+	return ""
+}
+
+func (m *GameRequest) GetResultSecondTeam() string {
+	if m != nil {
+		return m.ResultSecondTeam
+	}
+	return ""
+}
+
+func (m *GameRequest) GetFirstTeamPoint() string {
+	if m != nil {
+		return m.FirstTeamPoint
+	}
+	return ""
+}
+
+func (m *GameRequest) GetSecondTeamPoint() string {
+	if m != nil {
+		return m.SecondTeamPoint
+	}
+	return ""
+}
+
+func (m *GameRequest) GetLigaId() string {
+	if m != nil {
+		return m.LigaId
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*AllLigaRequest)(nil), "liga.AllLigaRequest")
 	proto.RegisterType((*Ligas)(nil), "liga.Ligas")
 	proto.RegisterType((*LigaResponse)(nil), "liga.LigaResponse")
 	proto.RegisterType((*LigaRequest)(nil), "liga.LigaRequest")
 	proto.RegisterType((*IdRequest)(nil), "liga.IdRequest")
+	proto.RegisterType((*AllGameRequest)(nil), "liga.AllGameRequest")
+	proto.RegisterType((*Games)(nil), "liga.Games")
+	proto.RegisterType((*GameResponse)(nil), "liga.GameResponse")
+	proto.RegisterType((*GameRequest)(nil), "liga.GameRequest")
 }
 
 func init() { proto.RegisterFile("liga/liga.proto", fileDescriptor_bf1f8d8504eb0d8c) }
 
 var fileDescriptor_bf1f8d8504eb0d8c = []byte{
-	// 320 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0xcf, 0x4a, 0x03, 0x31,
-	0x10, 0xc6, 0x9b, 0xfe, 0x11, 0x3a, 0x2b, 0xad, 0x0e, 0x3d, 0x2c, 0x15, 0x97, 0x9a, 0x53, 0x4f,
-	0x15, 0x5b, 0xbd, 0x78, 0x6b, 0x15, 0xa4, 0xe0, 0x69, 0x7d, 0x00, 0x89, 0xcd, 0xb0, 0x04, 0xb6,
-	0xed, 0xba, 0x49, 0x05, 0xdf, 0xc4, 0x47, 0xf2, 0xe8, 0x23, 0xc8, 0xf6, 0x45, 0x24, 0xc9, 0xd6,
-	0xd6, 0xa2, 0xe0, 0x65, 0x99, 0xfd, 0xbe, 0xf9, 0xe6, 0x97, 0x21, 0x81, 0x76, 0xaa, 0x12, 0x71,
-	0x6e, 0x3f, 0x83, 0x2c, 0x5f, 0x9a, 0x25, 0xd6, 0x6d, 0xcd, 0xaf, 0xa1, 0x35, 0x4e, 0xd3, 0x7b,
-	0x95, 0x88, 0x98, 0x9e, 0x57, 0xa4, 0x0d, 0x22, 0xd4, 0x33, 0x91, 0x50, 0xc8, 0x7a, 0xac, 0x5f,
-	0x8b, 0x5d, 0x8d, 0x1d, 0x68, 0xa4, 0x6a, 0xae, 0x4c, 0x58, 0x75, 0xa2, 0xff, 0xe1, 0x17, 0xd0,
-	0xb0, 0x41, 0x8d, 0x7d, 0x6b, 0x27, 0x42, 0x87, 0xac, 0x57, 0xeb, 0x07, 0x43, 0x1c, 0x38, 0x8c,
-	0x1f, 0xaa, 0xb3, 0xe5, 0x42, 0x53, 0xec, 0x1b, 0x78, 0x06, 0x87, 0xbb, 0x32, 0xb6, 0xa0, 0xaa,
-	0x64, 0x89, 0xaa, 0x2a, 0x69, 0xe1, 0x0b, 0x31, 0x27, 0xc7, 0x69, 0xc6, 0xae, 0xc6, 0x53, 0x80,
-	0x59, 0x4e, 0xc2, 0x90, 0x7c, 0x14, 0x26, 0xac, 0x3b, 0xa7, 0x59, 0x2a, 0x63, 0x63, 0xed, 0x55,
-	0x26, 0x37, 0x76, 0xc3, 0xdb, 0xa5, 0x32, 0x36, 0xfc, 0x0c, 0x82, 0xbd, 0xed, 0x1c, 0x80, 0x6d,
-	0x01, 0xfc, 0x04, 0x9a, 0x53, 0xb9, 0x69, 0xd8, 0x3b, 0xd1, 0x70, 0xcd, 0xfc, 0x80, 0x07, 0xca,
-	0x5f, 0xd4, 0x8c, 0xf0, 0x0a, 0xe0, 0xc6, 0xb1, 0xad, 0x88, 0xc7, 0xbb, 0xab, 0xba, 0x01, 0xdd,
-	0x5f, 0xb6, 0xe7, 0x15, 0xbc, 0x84, 0xe0, 0x8e, 0x8c, 0x15, 0x27, 0xaf, 0x53, 0x89, 0x6d, 0xdf,
-	0xf4, 0x8d, 0xfd, 0x23, 0x35, 0x74, 0xa9, 0xf2, 0x82, 0x34, 0x76, 0x7c, 0xd3, 0xcf, 0x0b, 0xeb,
-	0x06, 0xdb, 0xa8, 0xe6, 0x15, 0x1c, 0x01, 0xdc, 0x52, 0x4a, 0xe5, 0x01, 0xff, 0x07, 0x9a, 0x1c,
-	0xbd, 0x17, 0x11, 0xfb, 0x28, 0x22, 0xf6, 0x59, 0x44, 0xec, 0x6d, 0x1d, 0x55, 0x9e, 0x0e, 0xdc,
-	0x2b, 0x19, 0x7d, 0x05, 0x00, 0x00, 0xff, 0xff, 0x87, 0xf8, 0xef, 0x0b, 0x38, 0x02, 0x00, 0x00,
+	// 580 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x55, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0xae, 0xe3, 0xfc, 0x8e, 0x43, 0x92, 0x8e, 0x2a, 0x61, 0x05, 0x11, 0x15, 0x8b, 0x43, 0x84,
+	0x50, 0x11, 0x29, 0x5c, 0xb8, 0xa5, 0x20, 0xaa, 0x48, 0x1c, 0x50, 0xca, 0x3d, 0x5a, 0xb2, 0x4b,
+	0xb4, 0x92, 0x13, 0x9b, 0xec, 0x06, 0x89, 0x37, 0xe1, 0xc6, 0x73, 0xf0, 0x06, 0x1c, 0xfb, 0x08,
+	0x28, 0xbc, 0x08, 0xda, 0x59, 0xc7, 0x76, 0xac, 0xb4, 0x75, 0xb9, 0x44, 0xbb, 0xdf, 0x7c, 0xb3,
+	0xf3, 0xf3, 0x8d, 0x27, 0xd0, 0x0d, 0xe5, 0x82, 0xbd, 0x30, 0x3f, 0x67, 0xf1, 0x3a, 0xd2, 0x11,
+	0x56, 0xcd, 0x39, 0x78, 0x03, 0x9d, 0x71, 0x18, 0x7e, 0x90, 0x0b, 0x36, 0x15, 0x5f, 0x37, 0x42,
+	0x69, 0x44, 0xa8, 0xc6, 0x6c, 0x21, 0x7c, 0xe7, 0xd4, 0x19, 0xba, 0x53, 0x3a, 0xe3, 0x09, 0xd4,
+	0x42, 0xb9, 0x94, 0xda, 0xaf, 0x10, 0x68, 0x2f, 0xc1, 0x4b, 0xa8, 0x19, 0x47, 0x85, 0x43, 0x63,
+	0x5e, 0x30, 0xe5, 0x3b, 0xa7, 0xee, 0xd0, 0x1b, 0xe1, 0x19, 0x85, 0xb1, 0x8f, 0xaa, 0x38, 0x5a,
+	0x29, 0x31, 0xb5, 0x84, 0x20, 0x86, 0x76, 0x1e, 0xc6, 0x0e, 0x54, 0x24, 0x4f, 0x42, 0x55, 0x24,
+	0x37, 0xc1, 0x57, 0x6c, 0x29, 0x28, 0x4e, 0x6b, 0x4a, 0x67, 0x7c, 0x0c, 0x30, 0x5f, 0x0b, 0xa6,
+	0x05, 0x9f, 0x31, 0xed, 0x57, 0xc9, 0xd2, 0x4a, 0x90, 0xb1, 0x36, 0xe6, 0x4d, 0xcc, 0x77, 0xe6,
+	0x9a, 0x35, 0x27, 0xc8, 0x58, 0x07, 0x4f, 0xc0, 0x2b, 0x54, 0x47, 0x01, 0x9c, 0x2c, 0x40, 0xf0,
+	0x08, 0x5a, 0x13, 0xbe, 0x23, 0x14, 0x32, 0x4a, 0x1a, 0x74, 0xc9, 0x96, 0xe2, 0xbf, 0x1a, 0x64,
+	0x1c, 0xa9, 0x41, 0x74, 0xd8, 0x6f, 0x90, 0x7d, 0x74, 0xd7, 0x20, 0x22, 0x04, 0x3f, 0x5d, 0x68,
+	0xe7, 0xf1, 0x43, 0x1d, 0xd2, 0x32, 0xeb, 0x90, 0x39, 0x63, 0x1f, 0x9a, 0xf3, 0x68, 0xc5, 0xb5,
+	0x8c, 0x56, 0xbe, 0x4b, 0x78, 0x7a, 0xc7, 0x00, 0x1e, 0x7c, 0x91, 0x6b, 0xa5, 0x67, 0x5a, 0xb0,
+	0xe5, 0x4c, 0xf2, 0xa4, 0x81, 0x1e, 0x81, 0x9f, 0x04, 0x5b, 0x4e, 0x38, 0x3e, 0x85, 0x8e, 0x12,
+	0xc6, 0x23, 0x25, 0xd9, 0x36, 0xb6, 0x2d, 0x9a, 0xb0, 0x9e, 0xc1, 0xf1, 0x5a, 0xa8, 0x4d, 0xa8,
+	0x67, 0xd9, 0x83, 0x7e, 0x9d, 0x88, 0x5d, 0x6b, 0x78, 0xbf, 0x7b, 0x13, 0x9f, 0x03, 0x26, 0xdc,
+	0xdc, 0xc3, 0x7e, 0x83, 0xc8, 0x3d, 0x6b, 0xb9, 0x4a, 0xdf, 0xc6, 0x21, 0xf4, 0x72, 0x39, 0xc6,
+	0x91, 0x5c, 0x69, 0xbf, 0x49, 0xdc, 0x4e, 0x9a, 0xe6, 0x47, 0x83, 0x9a, 0x1c, 0xf2, 0x99, 0x5a,
+	0x6a, 0xcb, 0xe6, 0x90, 0x25, 0x6b, 0xb9, 0x0f, 0xa1, 0x61, 0xda, 0x6c, 0xca, 0x01, 0x62, 0xd4,
+	0xcd, 0x75, 0xc2, 0x0b, 0x03, 0xe5, 0xdd, 0x3e, 0x50, 0xed, 0xe2, 0x40, 0x5d, 0x57, 0xc0, 0x2b,
+	0x8c, 0x03, 0x09, 0xe2, 0xdc, 0x20, 0x48, 0xe5, 0x2e, 0x41, 0xdc, 0x32, 0x82, 0x54, 0xcb, 0x0a,
+	0x52, 0xbb, 0x8f, 0x20, 0xf5, 0x7b, 0x08, 0xd2, 0x28, 0x2f, 0x48, 0xf3, 0x4e, 0x41, 0x5a, 0x79,
+	0x41, 0x46, 0xbf, 0x5c, 0xfb, 0x91, 0x5e, 0x89, 0xf5, 0x37, 0x39, 0x17, 0xf8, 0x1a, 0xe0, 0x2d,
+	0xc9, 0x61, 0x40, 0x3c, 0xce, 0xaf, 0x13, 0xea, 0x79, 0xff, 0xc0, 0x86, 0x09, 0x8e, 0xf0, 0x15,
+	0x78, 0x97, 0x42, 0x1b, 0xf0, 0xe2, 0xfb, 0x84, 0x63, 0xd7, 0x92, 0xd2, 0x4f, 0xfb, 0x06, 0xaf,
+	0x11, 0x79, 0x25, 0x4b, 0x50, 0xe1, 0x89, 0x25, 0xed, 0x2f, 0xc5, 0xbe, 0x97, 0xb9, 0xaa, 0xe0,
+	0x08, 0xcf, 0x01, 0xde, 0x89, 0x50, 0x24, 0x09, 0x96, 0x0c, 0x94, 0x56, 0x65, 0xa6, 0x67, 0x57,
+	0x55, 0x6e, 0x92, 0xfa, 0x07, 0xd6, 0x42, 0x5a, 0x95, 0x01, 0x6f, 0xad, 0xaa, 0xe0, 0x95, 0x56,
+	0x65, 0x17, 0x50, 0x56, 0x55, 0x3e, 0xa0, 0x97, 0xb9, 0xee, 0x55, 0x45, 0x09, 0x96, 0x0b, 0x74,
+	0xd1, 0xfb, 0xbd, 0x1d, 0x38, 0xd7, 0xdb, 0x81, 0xf3, 0x67, 0x3b, 0x70, 0x7e, 0xfc, 0x1d, 0x1c,
+	0x7d, 0xae, 0xd3, 0xff, 0xcb, 0xf9, 0xbf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x9e, 0x9c, 0x97, 0xdf,
+	0x72, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -339,10 +710,16 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LigaServiceClient interface {
+	// liga
 	CreateLiga(ctx context.Context, in *LigaRequest, opts ...grpc.CallOption) (*LigaResponse, error)
 	GetLigaById(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*LigaResponse, error)
 	GetAllLigas(ctx context.Context, in *AllLigaRequest, opts ...grpc.CallOption) (*Ligas, error)
 	DeleteLiga(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*LigaResponse, error)
+	// game
+	CreateGame(ctx context.Context, in *GameRequest, opts ...grpc.CallOption) (*GameResponse, error)
+	GetGameById(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*GameResponse, error)
+	GetAllGames(ctx context.Context, in *AllGameRequest, opts ...grpc.CallOption) (*Games, error)
+	DeleteGame(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*GameResponse, error)
 }
 
 type ligaServiceClient struct {
@@ -389,12 +766,54 @@ func (c *ligaServiceClient) DeleteLiga(ctx context.Context, in *IdRequest, opts 
 	return out, nil
 }
 
+func (c *ligaServiceClient) CreateGame(ctx context.Context, in *GameRequest, opts ...grpc.CallOption) (*GameResponse, error) {
+	out := new(GameResponse)
+	err := c.cc.Invoke(ctx, "/liga.LigaService/CreateGame", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ligaServiceClient) GetGameById(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*GameResponse, error) {
+	out := new(GameResponse)
+	err := c.cc.Invoke(ctx, "/liga.LigaService/GetGameById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ligaServiceClient) GetAllGames(ctx context.Context, in *AllGameRequest, opts ...grpc.CallOption) (*Games, error) {
+	out := new(Games)
+	err := c.cc.Invoke(ctx, "/liga.LigaService/GetAllGames", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ligaServiceClient) DeleteGame(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*GameResponse, error) {
+	out := new(GameResponse)
+	err := c.cc.Invoke(ctx, "/liga.LigaService/DeleteGame", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LigaServiceServer is the server API for LigaService service.
 type LigaServiceServer interface {
+	// liga
 	CreateLiga(context.Context, *LigaRequest) (*LigaResponse, error)
 	GetLigaById(context.Context, *IdRequest) (*LigaResponse, error)
 	GetAllLigas(context.Context, *AllLigaRequest) (*Ligas, error)
 	DeleteLiga(context.Context, *IdRequest) (*LigaResponse, error)
+	// game
+	CreateGame(context.Context, *GameRequest) (*GameResponse, error)
+	GetGameById(context.Context, *IdRequest) (*GameResponse, error)
+	GetAllGames(context.Context, *AllGameRequest) (*Games, error)
+	DeleteGame(context.Context, *IdRequest) (*GameResponse, error)
 }
 
 // UnimplementedLigaServiceServer can be embedded to have forward compatible implementations.
@@ -412,6 +831,18 @@ func (*UnimplementedLigaServiceServer) GetAllLigas(ctx context.Context, req *All
 }
 func (*UnimplementedLigaServiceServer) DeleteLiga(ctx context.Context, req *IdRequest) (*LigaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLiga not implemented")
+}
+func (*UnimplementedLigaServiceServer) CreateGame(ctx context.Context, req *GameRequest) (*GameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
+}
+func (*UnimplementedLigaServiceServer) GetGameById(ctx context.Context, req *IdRequest) (*GameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGameById not implemented")
+}
+func (*UnimplementedLigaServiceServer) GetAllGames(ctx context.Context, req *AllGameRequest) (*Games, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllGames not implemented")
+}
+func (*UnimplementedLigaServiceServer) DeleteGame(ctx context.Context, req *IdRequest) (*GameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteGame not implemented")
 }
 
 func RegisterLigaServiceServer(s *grpc.Server, srv LigaServiceServer) {
@@ -490,6 +921,78 @@ func _LigaService_DeleteLiga_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LigaService_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LigaServiceServer).CreateGame(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/liga.LigaService/CreateGame",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LigaServiceServer).CreateGame(ctx, req.(*GameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LigaService_GetGameById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LigaServiceServer).GetGameById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/liga.LigaService/GetGameById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LigaServiceServer).GetGameById(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LigaService_GetAllGames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AllGameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LigaServiceServer).GetAllGames(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/liga.LigaService/GetAllGames",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LigaServiceServer).GetAllGames(ctx, req.(*AllGameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LigaService_DeleteGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LigaServiceServer).DeleteGame(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/liga.LigaService/DeleteGame",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LigaServiceServer).DeleteGame(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _LigaService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "liga.LigaService",
 	HandlerType: (*LigaServiceServer)(nil),
@@ -509,6 +1012,22 @@ var _LigaService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteLiga",
 			Handler:    _LigaService_DeleteLiga_Handler,
+		},
+		{
+			MethodName: "CreateGame",
+			Handler:    _LigaService_CreateGame_Handler,
+		},
+		{
+			MethodName: "GetGameById",
+			Handler:    _LigaService_GetGameById_Handler,
+		},
+		{
+			MethodName: "GetAllGames",
+			Handler:    _LigaService_GetAllGames_Handler,
+		},
+		{
+			MethodName: "DeleteGame",
+			Handler:    _LigaService_DeleteGame_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -712,6 +1231,283 @@ func (m *IdRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *AllGameRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AllGameRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *AllGameRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Limit != 0 {
+		i = encodeVarintLiga(dAtA, i, uint64(m.Limit))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Page != 0 {
+		i = encodeVarintLiga(dAtA, i, uint64(m.Page))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Games) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Games) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Games) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.Games) > 0 {
+		for iNdEx := len(m.Games) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Games[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintLiga(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GameResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GameResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.UpdatedAt) > 0 {
+		i -= len(m.UpdatedAt)
+		copy(dAtA[i:], m.UpdatedAt)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.UpdatedAt)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if len(m.CreatedAt) > 0 {
+		i -= len(m.CreatedAt)
+		copy(dAtA[i:], m.CreatedAt)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.CreatedAt)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.LigaId) > 0 {
+		i -= len(m.LigaId)
+		copy(dAtA[i:], m.LigaId)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.LigaId)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.SecondTeamPoint) > 0 {
+		i -= len(m.SecondTeamPoint)
+		copy(dAtA[i:], m.SecondTeamPoint)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.SecondTeamPoint)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.FirstTeamPoint) > 0 {
+		i -= len(m.FirstTeamPoint)
+		copy(dAtA[i:], m.FirstTeamPoint)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.FirstTeamPoint)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.ResultSecondTeam) > 0 {
+		i -= len(m.ResultSecondTeam)
+		copy(dAtA[i:], m.ResultSecondTeam)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.ResultSecondTeam)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.ResultFirstTeam) > 0 {
+		i -= len(m.ResultFirstTeam)
+		copy(dAtA[i:], m.ResultFirstTeam)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.ResultFirstTeam)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.SecondTeamId) > 0 {
+		i -= len(m.SecondTeamId)
+		copy(dAtA[i:], m.SecondTeamId)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.SecondTeamId)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.FirstTeamId) > 0 {
+		i -= len(m.FirstTeamId)
+		copy(dAtA[i:], m.FirstTeamId)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.FirstTeamId)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.Condtion) > 0 {
+		i -= len(m.Condtion)
+		copy(dAtA[i:], m.Condtion)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.Condtion)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Time) > 0 {
+		i -= len(m.Time)
+		copy(dAtA[i:], m.Time)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.Time)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Id != 0 {
+		i = encodeVarintLiga(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GameRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GameRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GameRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.LigaId) > 0 {
+		i -= len(m.LigaId)
+		copy(dAtA[i:], m.LigaId)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.LigaId)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.SecondTeamPoint) > 0 {
+		i -= len(m.SecondTeamPoint)
+		copy(dAtA[i:], m.SecondTeamPoint)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.SecondTeamPoint)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.FirstTeamPoint) > 0 {
+		i -= len(m.FirstTeamPoint)
+		copy(dAtA[i:], m.FirstTeamPoint)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.FirstTeamPoint)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.ResultSecondTeam) > 0 {
+		i -= len(m.ResultSecondTeam)
+		copy(dAtA[i:], m.ResultSecondTeam)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.ResultSecondTeam)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.ResultFirstTeam) > 0 {
+		i -= len(m.ResultFirstTeam)
+		copy(dAtA[i:], m.ResultFirstTeam)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.ResultFirstTeam)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.SecondTeamId) > 0 {
+		i -= len(m.SecondTeamId)
+		copy(dAtA[i:], m.SecondTeamId)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.SecondTeamId)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.FirstTeamId) > 0 {
+		i -= len(m.FirstTeamId)
+		copy(dAtA[i:], m.FirstTeamId)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.FirstTeamId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Condtion) > 0 {
+		i -= len(m.Condtion)
+		copy(dAtA[i:], m.Condtion)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.Condtion)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Time) > 0 {
+		i -= len(m.Time)
+		copy(dAtA[i:], m.Time)
+		i = encodeVarintLiga(dAtA, i, uint64(len(m.Time)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintLiga(dAtA []byte, offset int, v uint64) int {
 	offset -= sovLiga(v)
 	base := offset
@@ -810,6 +1606,149 @@ func (m *IdRequest) Size() (n int) {
 	_ = l
 	if m.Id != 0 {
 		n += 1 + sovLiga(uint64(m.Id))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *AllGameRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Page != 0 {
+		n += 1 + sovLiga(uint64(m.Page))
+	}
+	if m.Limit != 0 {
+		n += 1 + sovLiga(uint64(m.Limit))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *Games) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Games) > 0 {
+		for _, e := range m.Games {
+			l = e.Size()
+			n += 1 + l + sovLiga(uint64(l))
+		}
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *GameResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovLiga(uint64(m.Id))
+	}
+	l = len(m.Time)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.Condtion)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.FirstTeamId)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.SecondTeamId)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.ResultFirstTeam)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.ResultSecondTeam)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.FirstTeamPoint)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.SecondTeamPoint)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.LigaId)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.CreatedAt)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.UpdatedAt)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *GameRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Time)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.Condtion)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.FirstTeamId)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.SecondTeamId)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.ResultFirstTeam)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.ResultSecondTeam)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.FirstTeamPoint)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.SecondTeamPoint)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
+	}
+	l = len(m.LigaId)
+	if l > 0 {
+		n += 1 + l + sovLiga(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -1294,6 +2233,941 @@ func (m *IdRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLiga(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *AllGameRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLiga
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: AllGameRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: AllGameRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Page", wireType)
+			}
+			m.Page = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Page |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Limit", wireType)
+			}
+			m.Limit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Limit |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLiga(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Games) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLiga
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Games: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Games: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Games", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Games = append(m.Games, &GameResponse{})
+			if err := m.Games[len(m.Games)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLiga(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GameResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLiga
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GameResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Time = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Condtion", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Condtion = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FirstTeamId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FirstTeamId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecondTeamId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecondTeamId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResultFirstTeam", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ResultFirstTeam = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResultSecondTeam", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ResultSecondTeam = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FirstTeamPoint", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FirstTeamPoint = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecondTeamPoint", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecondTeamPoint = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LigaId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LigaId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CreatedAt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UpdatedAt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLiga(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GameRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLiga
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GameRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GameRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Time = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Condtion", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Condtion = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FirstTeamId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FirstTeamId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecondTeamId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecondTeamId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResultFirstTeam", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ResultFirstTeam = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResultSecondTeam", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ResultSecondTeam = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FirstTeamPoint", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FirstTeamPoint = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecondTeamPoint", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SecondTeamPoint = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LigaId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLiga
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLiga
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLiga
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LigaId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipLiga(dAtA[iNdEx:])

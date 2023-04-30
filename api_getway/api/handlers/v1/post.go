@@ -2,7 +2,7 @@ package v1
 
 import (
 	"context"
-	"fmt"
+	// "fmt"
 	"net/http"
 	"strconv"
 
@@ -23,14 +23,12 @@ import (
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json
-// @Param body body models.PostRequest true "Create Post"
+// @Param body body models.PostRequest true "CreatePost"
 // @Success 200 {object} models.Post
 // @Failure 400 {object} models.StandartErrorModel
 // @Failure 500 {object} models.StandartErrorModel
 // @Router /v1/post [post]
 func (h *handlerV1) CreatePost(c *gin.Context) {
-
-	fmt.Println(c.GetHeader("Authorization"))
 	var (
 		body        models.PostRequest
 		jspbMarshal protojson.MarshalOptions
@@ -50,6 +48,7 @@ func (h *handlerV1) CreatePost(c *gin.Context) {
 	response, err := h.serviceManager.PostService().CreatePost(context.Background(), &pu.PostRequest{
 		Title:       body.Title,
 		Description: body.Description,
+		ImgUrl:      body.ImgUrl,
 	})
 
 	if err != nil {
@@ -69,7 +68,7 @@ func (h *handlerV1) CreatePost(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json
-// @Param body body models.UpdatePostRequest true "Update Post"
+// @Param body body models.UpdatePostRequest true "UpdatePost"
 // @Success 200 {object} models.Post
 // @Failure 400 {object} models.StandartErrorModel
 // @Failure 404 {object} models.StandartErrorModel
@@ -96,6 +95,7 @@ func (h *handlerV1) UpdatePost(c *gin.Context) {
 		Id:          body.Id,
 		Title:       body.Title,
 		Description: body.Description,
+		ImgUrl:      body.ImgUrl,
 	})
 
 	if err != nil {
@@ -114,11 +114,7 @@ func (h *handlerV1) UpdatePost(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, &models.Post{
-		Id:          response.Id,
-		Title:       response.Title,
-		Description: response.Description,
-	})
+	c.JSON(http.StatusOK, response)
 }
 
 // @Summary get post by id

@@ -25,7 +25,7 @@ func NewLigaService(db *sqlx.DB, log logger.Logger, client grpcclient.Clients) *
 		Client:  client,
 	}
 }
-
+// liga
 func (s *LigaService) CreateLiga(ctx context.Context, req *p.LigaRequest) (*p.LigaResponse, error) {
 	res, err := s.storage.Liga().CreateLiga(req)
 	if err != nil {
@@ -61,6 +61,48 @@ func (s *LigaService) DeleteLiga(ctx context.Context, req *p.IdRequest) (*p.Liga
 	if err != nil {
 		log.Println("failed to delete Liga: ", err)
 		return &p.LigaResponse{}, err
+	}
+
+	return res, err
+}
+
+
+// game
+func (s *LigaService) CreateGame(ctx context.Context, req *p.GameRequest) (*p.GameResponse, error) {
+	res, err := s.storage.Game().CreateGame(req)
+	if err != nil {
+		log.Println("failed to create Game: ", err)
+		return &p.GameResponse{}, err
+	}
+
+	return res, nil
+}
+
+func (s *LigaService) GetGameById(ctx context.Context, req *p.IdRequest) (*p.GameResponse, error) {
+	res, err := s.storage.Game().GetGameById(req)
+	if err != nil {
+		log.Println("failed to get Game by id: ", err)
+		return &p.GameResponse{}, err
+	}
+
+	return res, nil
+}
+
+func (s *LigaService) GetAllGames(ctx context.Context, req *p.AllGameRequest) (*p.Games, error) {
+	res, err := s.storage.Game().GetAllGames(req)
+	if err != nil {
+		log.Println("failed to get all Game: ", err)
+		return &p.Games{}, err
+	}
+
+	return res, nil
+}
+
+func (s *LigaService) DeleteGame(ctx context.Context, req *p.IdRequest) (*p.GameResponse, error) {
+	res, err := s.storage.Game().DeleteGame(req)
+	if err != nil {
+		log.Println("failed to delete Game: ", err)
+		return &p.GameResponse{}, err
 	}
 
 	return res, err

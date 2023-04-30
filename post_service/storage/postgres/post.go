@@ -12,15 +12,16 @@ func (r *PostRepo) CreatePost(post *p.PostRequest) (*p.PostResponse, error) {
 	var res p.PostResponse
 	err := r.db.QueryRow(`
 		insert into 
-			posts(title, description) 
+			posts(title, description, img_url) 
 		values
-			($1, $2) 
+			($1, $2, $3) 
 		returning 
-			id, title, description, created_at, updated_at`, post.Title, post.Description).
+			id, title, description, img_url, created_at, updated_at`, post.Title, post.Description, post.ImgUrl).
 		Scan(
 			&res.Id, 
 			&res.Title, 
 			&res.Description,
+			&post.ImgUrl,
 			&res.CreatedAt, 
 			&res.UpdatedAt,
 		)
@@ -37,7 +38,7 @@ func (r *PostRepo) GetPostById(post *p.IdRequest) (*p.PostResponse, error) {
 	res := p.PostResponse{}
 	err := r.db.QueryRow(`
 		select 
-			id, title, description, created_at, updated_at 
+			id, title, description, img_url, created_at, updated_at 
 		from 
 			posts 
 		where 
@@ -46,6 +47,7 @@ func (r *PostRepo) GetPostById(post *p.IdRequest) (*p.PostResponse, error) {
 			&res.Id, 
 			&res.Title, 
 			&res.Description, 
+			&res.ImgUrl,
 			&res.CreatedAt, 
 			&res.UpdatedAt,
 		)
@@ -65,7 +67,7 @@ func (r *PostRepo) GetAllPosts(req *p.AllPostRequest)(*p.Posts, error){
 
 	rows, err := r.db.Query(`
 		select 
-			id, title, description, created_at, updated_at 
+			id, title, description, img_url, created_at, updated_at 
 		from 
 			posts 
 		where 
@@ -83,6 +85,7 @@ func (r *PostRepo) GetAllPosts(req *p.AllPostRequest)(*p.Posts, error){
 			&temp.Id,
 			&temp.Title,
 			&temp.Description,
+			&temp.ImgUrl,
 			&temp.CreatedAt,
 			&temp.UpdatedAt,
 		)
@@ -99,7 +102,7 @@ func (r *PostRepo) GetAllPosts(req *p.AllPostRequest)(*p.Posts, error){
 
 func (r *PostRepo) SearchByTitle(title *p.Search) (*p.Posts, error) {
 	res := p.Posts{}
-	query := fmt.Sprintf("select id, title, description, created_at, updated_at from posts where title ilike '%" + title.Search + "%' and deleted_at is null")
+	query := fmt.Sprintf("select id, title, description, img_url, created_at, updated_at from posts where title ilike '%" + title.Search + "%' and deleted_at is null")
 
 	rows, err := r.db.Query(query)
 	if err != nil {
@@ -114,6 +117,7 @@ func (r *PostRepo) SearchByTitle(title *p.Search) (*p.Posts, error) {
 			&post.Id,
 			&post.Title,
 			&post.Description,
+			&post.ImgUrl,
 			&post.CreatedAt,
 			&post.UpdatedAt,
 		)
@@ -133,9 +137,9 @@ func (r *PostRepo) UpdatePost(post *p.UpdatePostRequest) error {
 		update
 			posts 
 		set 
-			title = $1, description = $2, updated_at = $3 
+			title = $1, description = $2, img_url = $3, updated_at = $4
 		where 
-			id = $4`, post.Title, post.Description, time.Now(), post.Id)
+			id = $5`, post.Title, post.Description, post.ImgUrl, time.Now(), post.Id)
 	if err != nil {
 		log.Println("failed to update post")
 		return err
@@ -156,11 +160,12 @@ func (r *PostRepo) DeletePost(id *p.IdRequest) (*p.PostResponse, error) {
 		where 
 			id = $2 
 		returning 
-			id, title, description, created_at, updated_at`, time.Now(), id.Id).
+			id, title, description, img_url, created_at, updated_at`, time.Now(), id.Id).
 		Scan(
 			&post.Id, 
 			&post.Title, 
 			&post.Description, 
+			&post.ImgUrl,
 			&post.CreatedAt, 
 			&post.UpdatedAt,
 		)
@@ -180,7 +185,7 @@ func (r *PostRepo) GetNews(req *p.AllPostRequest)(*p.Posts, error){
 
 	rows, err := r.db.Query(`
 		select 
-			id, title, description, created_at, updated_at 
+			id, title, description, img_url, created_at, updated_at 
 		from 
 			posts 
 		where 
@@ -199,6 +204,7 @@ func (r *PostRepo) GetNews(req *p.AllPostRequest)(*p.Posts, error){
 			&temp.Id,
 			&temp.Title,
 			&temp.Description,
+			&temp.ImgUrl,
 			&temp.CreatedAt,
 			&temp.UpdatedAt,
 		)

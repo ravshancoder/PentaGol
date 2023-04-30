@@ -26,6 +26,29 @@ definitions:
       message:
         type: string
     type: object
+  models.LigaRequest:
+    properties:
+      name:
+        type: string
+    type: object
+  models.LigaResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Ligas:
+    properties:
+      ligas:
+        items:
+          $ref: '#/definitions/models.LigaResponse'
+        type: array
+    type: object
   models.Post:
     properties:
       created_at:
@@ -34,16 +57,18 @@ definitions:
         type: string
       id:
         type: integer
+      img_url:
+        type: string
       title:
         type: string
       updated_at:
         type: string
-      user_id:
-        type: integer
     type: object
   models.PostRequest:
     properties:
       description:
+        type: string
+      img_url:
         type: string
       title:
         type: string
@@ -66,9 +91,9 @@ definitions:
         type: string
       id:
         type: integer
-      title:
+      img_url:
         type: string
-      user_id:
+      title:
         type: string
     type: object
 info:
@@ -138,6 +163,137 @@ paths:
       summary: get admin by id
       tags:
       - Admin
+  /v1/liga:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a liga
+      parameters:
+      - description: CreateLiga
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.LigaRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LigaResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create liga
+      tags:
+      - Liga
+  /v1/liga/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a liga
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LigaResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete liga
+      tags:
+      - Liga
+    get:
+      consumes:
+      - application/json
+      description: This api gets a Liga by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LigaResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get liga by id
+      tags:
+      - Liga
+  /v1/ligas:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all ligas
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Ligas'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all ligas
+      tags:
+      - Liga
   /v1/login/{email}/{password}:
     get:
       consumes:
@@ -168,7 +324,7 @@ paths:
       - application/json
       description: This api creates a post
       parameters:
-      - description: Create Post
+      - description: CreatePost
         in: body
         name: body
         required: true
@@ -260,7 +416,7 @@ paths:
       - application/json
       description: This api updates a post
       parameters:
-      - description: Update Post
+      - description: UpdatePost
         in: body
         name: body
         required: true
