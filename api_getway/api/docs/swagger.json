@@ -678,11 +678,6 @@
         },
         "/v1/login": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "description": "this api login admin",
                 "consumes": [
                     "application/json"
@@ -1064,9 +1059,6 @@
                 "first_team_id": {
                     "type": "integer"
                 },
-                "first_team_point": {
-                    "type": "integer"
-                },
                 "liga_id": {
                     "type": "integer"
                 },
@@ -1077,9 +1069,6 @@
                     "type": "integer"
                 },
                 "second_team_id": {
-                    "type": "integer"
-                },
-                "second_team_point": {
                     "type": "integer"
                 },
                 "time": {

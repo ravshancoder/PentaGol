@@ -689,11 +689,6 @@ const docTemplate = `{
         },
         "/v1/login": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "description": "this api login admin",
                 "consumes": [
                     "application/json"
@@ -1075,9 +1070,6 @@ const docTemplate = `{
                 "first_team_id": {
                     "type": "integer"
                 },
-                "first_team_point": {
-                    "type": "integer"
-                },
                 "liga_id": {
                     "type": "integer"
                 },
@@ -1088,9 +1080,6 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "second_team_id": {
-                    "type": "integer"
-                },
-                "second_team_point": {
                     "type": "integer"
                 },
                 "time": {

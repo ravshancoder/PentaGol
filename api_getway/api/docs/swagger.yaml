@@ -59,8 +59,6 @@ definitions:
         type: boolean
       first_team_id:
         type: integer
-      first_team_point:
-        type: integer
       liga_id:
         type: integer
       result_first_team:
@@ -68,8 +66,6 @@ definitions:
       result_second_team:
         type: integer
       second_team_id:
-        type: integer
-      second_team_point:
         type: integer
       time:
         type: string
@@ -633,8 +629,6 @@ paths:
       produces:
       - application/json
       responses: {}
-      security:
-      - ApiKeyAuth: []
       summary: login admin api
       tags:
       - Admin

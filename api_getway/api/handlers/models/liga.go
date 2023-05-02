@@ -27,8 +27,6 @@ type GameRequest struct {
 	SecondTeamId     int64  `json:"second_team_id"`
 	ResultFirstTeam  int64  `json:"result_first_team"`
 	ResultSecondTeam int64  `json:"result_second_team"`
-	FirstTeamPoint   int64  `json:"first_team_point"`
-	SecondTeamPoint  int64  `json:"second_team_point"`
 	LigaId           int64  `json:"liga_id"`
 }
 

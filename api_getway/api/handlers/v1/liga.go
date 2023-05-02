@@ -190,6 +190,17 @@ func (h *handlerV1) CreateGame(c *gin.Context) {
 		h.log.Error("Failed to bind json: ", l.Error(err))
 		return
 	}
+	var pointFirstTeam, pointSecondTeam int64
+	if body.ResultFirstTeam > body.ResultSecondTeam {
+		pointFirstTeam = 3
+		pointSecondTeam = 0
+	} else if body.ResultFirstTeam == body.ResultSecondTeam {
+		pointFirstTeam = 1
+		pointSecondTeam = 1
+	} else if body.ResultFirstTeam == body.ResultSecondTeam {
+		pointFirstTeam = 0
+		pointSecondTeam = 3
+	}
 
 	response, err := h.serviceManager.LigaService().CreateGame(context.Background(), &pu.GameRequest{
 		Time:             body.Time,
@@ -198,8 +209,8 @@ func (h *handlerV1) CreateGame(c *gin.Context) {
 		SecondTeamId:     body.SecondTeamId,
 		ResultFirstTeam:  body.ResultFirstTeam,
 		ResultSecondTeam: body.ResultSecondTeam,
-		FirstTeamPoint:   body.FirstTeamPoint,
-		SecondTeamPoint:  body.SecondTeamPoint,
+		FirstTeamPoint:   pointFirstTeam,
+		SecondTeamPoint:  pointSecondTeam,
 		LigaId:           body.LigaId,
 	})
 
