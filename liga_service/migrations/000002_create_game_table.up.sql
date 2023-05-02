@@ -10,5 +10,6 @@ CREATE TABLE IF NOT EXISTS games (
     second_team_point INT NOT NULL,
     liga_id INT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at TIME
 );

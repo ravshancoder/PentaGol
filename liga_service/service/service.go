@@ -84,7 +84,7 @@ func (s *LigaService) GetGameById(ctx context.Context, req *p.IdRequest) (*p.Gam
 		log.Println("failed to get Game by id: ", err)
 		return &p.GameResponse{}, err
 	}
-
+	
 	return res, nil
 }
 
