@@ -240,7 +240,6 @@ func (h *handlerV1) GetGameById(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
 	response, err := h.serviceManager.LigaService().GetGameById(context.Background(), &pu.IdRequest{Id: int64(id)})
-	
 	if err != nil {
 		statusCode := http.StatusInternalServerError
 		if status.Code(err) == codes.NotFound {
@@ -253,14 +252,7 @@ func (h *handlerV1) GetGameById(c *gin.Context) {
 		return
 	}
 
-	club, err := h.serviceManager.LigaService().GetClubById(context.Background(), &pu.IdRequest{Id: response.FirstTeamId})
-
-	firstTeamName := club.Name
-	c.JSON(http.StatusOK, &pu.GameResponse{
-		Id: response.Id,
-		Time: response.Time,
-		FirstTeamId: firstTeamName,
-	})
+	c.JSON(http.StatusOK, response)
 }
 
 // @Summary get all games
@@ -331,7 +323,6 @@ func (h *handlerV1) DeleteGame(c *gin.Context) {
 
 // club
 // ----------------------------------------------
-
 // @Summary create club
 // @Description This api creates a club
 // @Tags Club

@@ -87,6 +87,11 @@ func New(option Option) *gin.Engine {
 	api.GET("/games", handlerV1.GetAllGames)
 	api.DELETE("/game/:id", handlerV1.DeleteGame)
 
+	//Game
+	api.POST("/club", handlerV1.CreateClub)
+	api.GET("/club/:id", handlerV1.GetClubById)
+	api.GET("/clubs", handlerV1.GetAllClubs)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

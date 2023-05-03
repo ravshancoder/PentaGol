@@ -23,8 +23,8 @@ type Ligas struct {
 type GameRequest struct {
 	Time             string `json:"time"`
 	Condtion         bool   `json:"condition"`
-	FirstTeamName      string  `json:"first_team_name"`
-	SecondTeamName     string  `json:"second_team_name"`
+	FirstTeamId      int64  `json:"first_team_id"`
+	SecondTeamId     int64  `json:"second_team_id"`
 	ResultFirstTeam  int64  `json:"result_first_team"`
 	ResultSecondTeam int64  `json:"result_second_team"`
 	LigaId           int64  `json:"liga_id"`
@@ -34,8 +34,8 @@ type GameResponse struct {
 	Id               int64  `json:"id"`
 	Time             string `json:"time"`
 	Condtion         bool   `json:"condition"`
-	FirstTeamName      string  `json:"first_team_name"`
-	SecondTeamName     string  `json:"second_team_name"`
+	FirstTeamId      int64  `json:"first_team_id"`
+	SecondTeamId     int64  `json:"second_team_id"`
 	ResultFirstTeam  int64  `json:"result_first_team"`
 	ResultSecondTeam int64  `json:"result_second_team"`
 	FirstTeamPoint   int64  `json:"first_team_point"`

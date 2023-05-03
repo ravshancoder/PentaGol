@@ -37,7 +37,7 @@ func (r *Repo) GetClubById(liga *p.IdRequest) (*p.ClubResponse, error) {
 		select 
 			id, name, points, created_at, updated_at 
 		from 
-			ligas 
+			clubs 
 		where 
 			id = $1 and deleted_at is null`, liga.Id).
 		Scan(
@@ -65,7 +65,7 @@ func (r *Repo) GetAllClubs(req *p.AllClubRequest) (*p.Clubs, error) {
 		select 
 			id, name, points, created_at, updated_at 
 		from 
-			ligas 
+			clubs 
 		where 
 			deleted_at is null 
 		limit $1 offset $2`, req.Limit, offset,
