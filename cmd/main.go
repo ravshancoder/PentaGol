@@ -13,21 +13,25 @@ import (
 )
 
 func main() {
-	cfg := config.Load()
+	cfg := config.Load(".")
 	log := logger.New(cfg.LogLevel, "pentagol")
-
+	
+	fmt.Println(cfg.Postgres.Host,
+		cfg.Postgres.Port,
+		cfg.Postgres.User,
+		cfg.Postgres.Password,
+		cfg.Postgres.Database)
 	log.Info("main: sqlxConfig",
-		logger.String("host", cfg.PostgresHost),
-		logger.String("port", cfg.PostgresPort),
-		logger.String("database", cfg.PostgresDatabase),
+		logger.String("host", cfg.Postgres.Host),
+		logger.String("port", cfg.Postgres.Port),
+		logger.String("database", cfg.Postgres.Database),
 	)
-
 	psqlString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		cfg.PostgresHost,
-		cfg.PostgresPort,
-		cfg.PostgresUser,
-		cfg.PostgresPassword,
-		cfg.PostgresDatabase,
+		cfg.Postgres.Host,
+		cfg.Postgres.Port,
+		cfg.Postgres.User,
+		cfg.Postgres.Password,
+		cfg.Postgres.Database,
 	)
 
 	a, err := gormadapter.NewAdapter("postgres", psqlString, true)
@@ -59,7 +63,7 @@ func main() {
 		CasbinEnforcer: casbinEnforcer,
 	})
 
-	if err := server.Run(cfg.HTTPPort); err != nil {
+	if err := server.Run(cfg.HttpPort); err != nil {
 		fmt.Println(err)
 		log.Fatal("failed to run HTTP server: ", logger.Error(err))
 		panic(err)
