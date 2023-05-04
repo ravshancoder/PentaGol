@@ -1,1 +1,0 @@
-# pentagol_protos
