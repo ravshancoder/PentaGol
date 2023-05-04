@@ -1266,7 +1266,7 @@ const docTemplate = `{
     },
     "securityDefinitions": {
         "ApiKeyAuth": {
-            "description": "This is a admin service api.",
+            "description": "This is a admin api.",
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"

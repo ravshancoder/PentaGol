@@ -800,7 +800,7 @@ paths:
       - Post
 securityDefinitions:
   ApiKeyAuth:
-    description: This is a admin  api.
+    description: This is a admin api.
     in: header
     name: Authorization
     type: apiKey
