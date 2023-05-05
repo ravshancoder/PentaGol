@@ -2,6 +2,7 @@ package api
 
 import (
 	jwthandler "github.com/PentaGol/api/token"
+	"github.com/PentaGol/storage"
 	"github.com/casbin/casbin/v2"
 	"github.com/gin-contrib/cors"
 
@@ -21,7 +22,9 @@ import (
 type Option struct {
 	Conf           config.Config
 	Logger         logger.Logger
+	Strg           storage.IStorage
 	CasbinEnforcer *casbin.Enforcer
+	Jwthandler jwthandler.JWTHandler 
 }
 
 // New ...
@@ -48,6 +51,8 @@ func New(option Option) *gin.Engine {
 		Logger:         option.Logger,
 		Cfg:            option.Conf,
 		CasbinEnforcer: option.CasbinEnforcer,
+		Strg:           option.Strg,
+		JwtHandler: option.Jwthandler,
 	})
 
 	jwt := jwthandler.JWTHandler{

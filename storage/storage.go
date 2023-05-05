@@ -27,11 +27,11 @@ type storagePg struct {
 func NewStoragePg(db *sqlx.DB) *storagePg {
 	return &storagePg{
 		db:        db,
-		adminRepo: postgres.NewRepo(db),
-		postRepo:  postgres.NewRepo(db),
-		ligaRepo:  postgres.NewRepo(db),
-		gameRepo:  postgres.NewRepo(db),
-		clubRepo:  postgres.NewRepo(db),
+		adminRepo: postgres.NewUserRepo(db),
+		postRepo:  postgres.NewPostRepo(db),
+		ligaRepo:  postgres.NewLigaRepo(db),
+		gameRepo:  postgres.NewGameRepo(db),
+		clubRepo:  postgres.NewClubRepo(db),
 	}
 }
 

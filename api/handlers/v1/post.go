@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -167,6 +168,7 @@ func (h *handlerV1) GetAllPosts(c *gin.Context) {
 		h.log.Error("Failed to get all posts: " + errstr[0])
 		return
 	}
+	fmt.Println(params.Limit, params.Page)
 	response, err := h.strg.Post().GetAllPosts(&pu.AllPostRequest{
 		Limit: params.Limit,
 		Page:  params.Page,

@@ -5,9 +5,20 @@ import (
 	"time"
 
 	p "github.com/PentaGol/genproto/liga"
+	"github.com/jmoiron/sqlx"
 )
 
-func (r *Repo) CreateLiga(liga *p.LigaRequest) (*p.LigaResponse, error) {
+type LigaRepo struct {
+	db *sqlx.DB
+}
+
+func NewLigaRepo(db *sqlx.DB) *LigaRepo {
+	return &LigaRepo{
+		db: db,
+	}
+}
+
+func (r *LigaRepo) CreateLiga(liga *p.LigaRequest) (*p.LigaResponse, error) {
 	var res p.LigaResponse
 	err := r.db.QueryRow(`
 		insert into 
@@ -31,7 +42,7 @@ func (r *Repo) CreateLiga(liga *p.LigaRequest) (*p.LigaResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetLigaById(liga *p.IdRequest) (*p.LigaResponse, error) {
+func (r *LigaRepo) GetLigaById(liga *p.IdRequest) (*p.LigaResponse, error) {
 	res := p.LigaResponse{}
 	err := r.db.QueryRow(`
 		select 
@@ -55,7 +66,7 @@ func (r *Repo) GetLigaById(liga *p.IdRequest) (*p.LigaResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetAllLigas(req *p.AllLigaRequest) (*p.Ligas, error) {
+func (r *LigaRepo) GetAllLigas(req *p.AllLigaRequest) (*p.Ligas, error) {
 	res := p.Ligas{}
 
 	offset := (req.Page - 1) * req.Limit
@@ -93,7 +104,7 @@ func (r *Repo) GetAllLigas(req *p.AllLigaRequest) (*p.Ligas, error) {
 	return &res, nil
 }
 
-func (r *Repo) DeleteLiga(id *p.IdRequest) (*p.LigaResponse, error) {
+func (r *LigaRepo) DeleteLiga(id *p.IdRequest) (*p.LigaResponse, error) {
 	liga := p.LigaResponse{}
 	err := r.db.QueryRow(`
 		update 

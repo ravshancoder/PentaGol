@@ -6,9 +6,20 @@ import (
 	"time"
 
 	p "github.com/PentaGol/genproto/post"
+	"github.com/jmoiron/sqlx"
 )
 
-func (r *Repo) CreatePost(post *p.PostRequest) (*p.PostResponse, error) {
+type PostRepo struct {
+	db *sqlx.DB
+}
+
+func NewPostRepo(db *sqlx.DB) *PostRepo {
+	return &PostRepo{
+		db: db,
+	}
+}
+
+func (r *PostRepo) CreatePost(post *p.PostRequest) (*p.PostResponse, error) {
 	var res p.PostResponse
 	err := r.db.QueryRow(`
 		insert into 
@@ -34,7 +45,7 @@ func (r *Repo) CreatePost(post *p.PostRequest) (*p.PostResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetPostById(post *p.IdRequest) (*p.PostResponse, error) {
+func (r *PostRepo) GetPostById(post *p.IdRequest) (*p.PostResponse, error) {
 	res := p.PostResponse{}
 	err := r.db.QueryRow(`
 		select 
@@ -60,7 +71,7 @@ func (r *Repo) GetPostById(post *p.IdRequest) (*p.PostResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetAllPosts(req *p.AllPostRequest) (*p.Posts, error) {
+func (r *PostRepo) GetAllPosts(req *p.AllPostRequest) (*p.Posts, error) {
 	res := p.Posts{}
 
 	offset := (req.Page - 1) * req.Limit
@@ -100,7 +111,7 @@ func (r *Repo) GetAllPosts(req *p.AllPostRequest) (*p.Posts, error) {
 	return &res, nil
 }
 
-func (r *Repo) SearchByTitle(title *p.Search) (*p.Posts, error) {
+func (r *PostRepo) SearchByTitle(title *p.Search) (*p.Posts, error) {
 	res := p.Posts{}
 	query := fmt.Sprintf("select id, title, description, img_url, created_at, updated_at from posts where title ilike '%" + title.Search + "%' and deleted_at is null")
 
@@ -132,7 +143,7 @@ func (r *Repo) SearchByTitle(title *p.Search) (*p.Posts, error) {
 	return &res, nil
 }
 
-func (r *Repo) UpdatePost(post *p.UpdatePostRequest) error {
+func (r *PostRepo) UpdatePost(post *p.UpdatePostRequest) error {
 	res, err := r.db.Exec(`
 		update
 			posts 
@@ -150,7 +161,7 @@ func (r *Repo) UpdatePost(post *p.UpdatePostRequest) error {
 	return nil
 }
 
-func (r *Repo) DeletePost(id *p.IdRequest) (*p.PostResponse, error) {
+func (r *PostRepo) DeletePost(id *p.IdRequest) (*p.PostResponse, error) {
 	post := p.PostResponse{}
 	err := r.db.QueryRow(`
 		update 
@@ -178,7 +189,7 @@ func (r *Repo) DeletePost(id *p.IdRequest) (*p.PostResponse, error) {
 	return &post, nil
 }
 
-func (r *Repo) GetNews(req *p.AllPostRequest) (*p.Posts, error) {
+func (r *PostRepo) GetNews(req *p.AllPostRequest) (*p.Posts, error) {
 	res := p.Posts{}
 
 	offset := (req.Page - 1) * req.Limit

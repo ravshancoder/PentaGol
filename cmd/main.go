@@ -6,6 +6,8 @@ import (
 	"github.com/PentaGol/api"
 	"github.com/PentaGol/config"
 	"github.com/PentaGol/pkg/logger"
+	"github.com/PentaGol/storage"
+	"github.com/PentaGol/pkg/db"
 	"github.com/casbin/casbin/util"
 	"github.com/casbin/casbin/v2"
 	defaultrolemanager "github.com/casbin/casbin/v2/rbac/default-role-manager"
@@ -41,6 +43,11 @@ func main() {
 		return
 	}
 
+	connDb, err := db.ConnectToDB(cfg)
+	if err != nil {
+		fmt.Println("failed connect database", err)
+	}
+
 	fmt.Println(a)
 
 	casbinEnforcer, err := casbin.NewEnforcer(cfg.AuthConfigPath, a)
@@ -60,10 +67,13 @@ func main() {
 	casbinEnforcer.GetRoleManager().(*defaultrolemanager.RoleManager).AddMatchingFunc("keyMatch", util.KeyMatch)
 	casbinEnforcer.GetRoleManager().(*defaultrolemanager.RoleManager).AddMatchingFunc("keyMatch3", util.KeyMatch3)
 
+	strg := storage.NewStoragePg(connDb)
+
 	server := api.New(api.Option{
 		Conf:           cfg,
 		Logger:         log,
 		CasbinEnforcer: casbinEnforcer,
+		Strg:           strg,
 	})
 
 	if err := server.Run(cfg.HttpPort); err != nil {

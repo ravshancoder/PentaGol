@@ -5,9 +5,20 @@ import (
 	"time"
 
 	p "github.com/PentaGol/genproto/liga"
+	"github.com/jmoiron/sqlx"
 )
 
-func (r *Repo) CreateGame(game *p.GameRequest) (*p.GameResponse, error) {
+type GameRepo struct {
+	db *sqlx.DB
+}
+
+func NewGameRepo(db *sqlx.DB) *GameRepo {
+	return &GameRepo{
+		db: db,
+	}
+}
+
+func (r *GameRepo) CreateGame(game *p.GameRequest) (*p.GameResponse, error) {
 	var res p.GameResponse
 	err := r.db.QueryRow(`
 		insert into 
@@ -60,7 +71,7 @@ func (r *Repo) CreateGame(game *p.GameRequest) (*p.GameResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetGameById(game *p.IdRequest) (*p.GameResponse, error) {
+func (r *GameRepo) GetGameById(game *p.IdRequest) (*p.GameResponse, error) {
 	res := p.GameResponse{}
 	err := r.db.QueryRow(`
 		select 
@@ -103,7 +114,7 @@ func (r *Repo) GetGameById(game *p.IdRequest) (*p.GameResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetAllGames(req *p.AllGameRequest) (*p.Games, error) {
+func (r *GameRepo) GetAllGames(req *p.AllGameRequest) (*p.Games, error) {
 	res := p.Games{}
 
 	offset := (req.Page - 1) * req.Limit
@@ -158,7 +169,7 @@ func (r *Repo) GetAllGames(req *p.AllGameRequest) (*p.Games, error) {
 	return &res, nil
 }
 
-func (r *Repo) DeleteGame(id *p.IdRequest) (*p.GameResponse, error) {
+func (r *GameRepo) DeleteGame(id *p.IdRequest) (*p.GameResponse, error) {
 	game := p.GameResponse{}
 	err := r.db.QueryRow(`
 		update 

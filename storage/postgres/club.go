@@ -4,9 +4,20 @@ import (
 	"log"
 
 	p "github.com/PentaGol/genproto/liga"
+	"github.com/jmoiron/sqlx"
 )
 
-func (r *Repo) CreateClub(club *p.ClubRequest) (*p.ClubResponse, error) {
+type ClubRepo struct {
+	db *sqlx.DB
+}
+
+func NewClubRepo(db *sqlx.DB) *ClubRepo {
+	return &ClubRepo{
+		db: db,
+	}
+}
+
+func (r *ClubRepo) CreateClub(club *p.ClubRequest) (*p.ClubResponse, error) {
 	var res p.ClubResponse
 	err := r.db.QueryRow(`
 		insert into 
@@ -31,7 +42,7 @@ func (r *Repo) CreateClub(club *p.ClubRequest) (*p.ClubResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetClubById(liga *p.IdRequest) (*p.ClubResponse, error) {
+func (r *ClubRepo) GetClubById(liga *p.IdRequest) (*p.ClubResponse, error) {
 	res := p.ClubResponse{}
 	err := r.db.QueryRow(`
 		select 
@@ -56,7 +67,7 @@ func (r *Repo) GetClubById(liga *p.IdRequest) (*p.ClubResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetAllClubs(req *p.AllClubRequest) (*p.Clubs, error) {
+func (r *ClubRepo) GetAllClubs(req *p.AllClubRequest) (*p.Clubs, error) {
 	res := p.Clubs{}
 
 	offset := (req.Page - 1) * req.Limit

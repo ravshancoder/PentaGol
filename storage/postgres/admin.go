@@ -5,9 +5,20 @@ import (
 	"log"
 
 	u "github.com/PentaGol/genproto/admin"
+	"github.com/jmoiron/sqlx"
 )
 
-func (r *Repo) CreateAdmin(admin *u.AdminRequest) (*u.AdminResponse, error) {
+type AdminRepo struct {
+	db *sqlx.DB
+}
+
+func NewUserRepo(db *sqlx.DB) *AdminRepo {
+	return &AdminRepo{
+		db: db,
+	}
+}
+
+func (r *AdminRepo) CreateAdmin(admin *u.AdminRequest) (*u.AdminResponse, error) {
 	var res u.AdminResponse
 	err := r.db.QueryRow(`
 		insert into 
@@ -33,7 +44,7 @@ func (r *Repo) CreateAdmin(admin *u.AdminRequest) (*u.AdminResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) GetAdminById(admin *u.IdRequest) (*u.AdminResponse, error) {
+func (r *AdminRepo) GetAdminById(admin *u.IdRequest) (*u.AdminResponse, error) {
 	var res u.AdminResponse
 	err := r.db.QueryRow(`
 		select 
@@ -58,7 +69,7 @@ func (r *Repo) GetAdminById(admin *u.IdRequest) (*u.AdminResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) CheckFiedld(req *u.CheckFieldReq) (*u.CheckFieldRes, error) {
+func (r *AdminRepo) CheckFiedld(req *u.CheckFieldReq) (*u.CheckFieldRes, error) {
 	query := fmt.Sprintf("SELECT 1 FROM admins WHERE %s=$1", req.Field)
 	res := &u.CheckFieldRes{}
 	temp := -1
@@ -75,7 +86,7 @@ func (r *Repo) CheckFiedld(req *u.CheckFieldReq) (*u.CheckFieldRes, error) {
 	return res, nil
 }
 
-func (r *Repo) GetByEmail(req *u.EmailReq) (*u.AdminResponse, error) {
+func (r *AdminRepo) GetByEmail(req *u.EmailReq) (*u.AdminResponse, error) {
 	res := u.AdminResponse{}
 	err := r.db.QueryRow(`
 	SELECT 
@@ -107,7 +118,7 @@ func (r *Repo) GetByEmail(req *u.EmailReq) (*u.AdminResponse, error) {
 	return &res, nil
 }
 
-func (r *Repo) UpdateToken(admin *u.RequestForTokens) (*u.AdminResponse, error) {
+func (r *AdminRepo) UpdateToken(admin *u.RequestForTokens) (*u.AdminResponse, error) {
 	res := u.AdminResponse{}
 	err := r.db.QueryRow(`
 		update

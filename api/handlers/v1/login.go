@@ -39,8 +39,7 @@ func (h *handlerV1) Login(c *gin.Context) {
 	fmt.Println(req)
 	res, err := h.strg.Admin().GetByEmail(&pu.EmailReq{
 		Email: req.Email,
-	},
-	)
+	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
