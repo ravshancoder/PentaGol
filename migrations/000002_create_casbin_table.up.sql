@@ -1,4 +1,4 @@
-create table casbin_rule(p_type varchar, v0 varchar, v1 varchar, v2 varchar, v3 varchar, v4 varchar, v5 varchar);
+-- create table casbin_rule(p_type varchar, v0 varchar, v1 varchar, v2 varchar, v3 varchar, v4 varchar, v5 varchar);
 
 INSERT INTO casbin_rule(p_type, v0, v1, v2) VALUES('P', 'unauthorized', '/v1/swagger/*', 'GET');
 INSERT INTO casbin_rule(p_type, v0, v1, v2) VALUES('P', 'unauthorized', '/v1/login', 'POST');

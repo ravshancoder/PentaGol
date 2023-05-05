@@ -15,7 +15,7 @@ import (
 func main() {
 	cfg := config.Load(".")
 	log := logger.New(cfg.LogLevel, "pentagol")
-	
+
 	fmt.Println(cfg.Postgres.Host,
 		cfg.Postgres.Port,
 		cfg.Postgres.User,
@@ -41,12 +41,15 @@ func main() {
 		return
 	}
 
+	fmt.Println(a)
+
 	casbinEnforcer, err := casbin.NewEnforcer(cfg.AuthConfigPath, a)
 	if err != nil {
 		fmt.Println(err)
 		log.Error("new enforcer error", logger.Error(err))
 		return
 	}
+
 	err = casbinEnforcer.LoadPolicy()
 	if err != nil {
 		fmt.Println(err)

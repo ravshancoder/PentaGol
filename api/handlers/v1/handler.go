@@ -26,7 +26,7 @@ type handlerV1 struct {
 
 type HandlerV1Config struct {
 	Logger         logger.Logger
-	Strg           *storage.IStorage
+	Strg           storage.IStorage
 	Cfg            config.Config
 	JwtHandler     token.JWTHandler
 	CasbinEnforcer *casbin.Enforcer
@@ -35,7 +35,7 @@ type HandlerV1Config struct {
 func New(c *HandlerV1Config) *handlerV1 {
 	return &handlerV1{
 		log:            c.Logger,
-		strg:           *c.Strg,
+		strg:           c.Strg,
 		cfg:            c.Cfg,
 		jwtHandler:     c.JwtHandler,
 		casbinEnforcer: c.CasbinEnforcer,
