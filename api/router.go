@@ -28,7 +28,7 @@ type Option struct {
 }
 
 // New ...
-// @title           			Swagger for admin api
+// @title           			created by ravshan
 // @securityDefinitions.apikey 	ApiKeyAuth
 // @in header
 // @name Authorization

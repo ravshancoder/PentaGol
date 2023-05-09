@@ -186,7 +186,7 @@ definitions:
     type: object
 info:
   contact: {}
-  title: Swagger for admin api
+  title: created by ravshan
 paths:
   /v1/admin:
     post:
