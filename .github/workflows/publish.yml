@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+      
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -17,7 +18,7 @@ env:
   DATABASE_USER: ${{ secrets.DATABASE_USER }}
   DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
-  
+
 jobs:
   build_push_deploy:
     runs-on: ubuntu-latest
